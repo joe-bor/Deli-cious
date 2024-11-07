@@ -1,12 +1,16 @@
 package com.pluralsight.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
 public abstract class Topping {
-    private String name;
+    private final String name;
+
+    Topping(String name){
+        this.name = name;
+    }
+
+    Topping(){
+        this.name = "Default topping name";
+    }
 }

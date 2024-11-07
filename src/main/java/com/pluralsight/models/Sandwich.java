@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Sandwich {
     private String breadType;
-    private String breadSize;
+    private String sandwichSize;
     private List<Topping> toppings;
     private boolean toasted;
 

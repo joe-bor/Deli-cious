@@ -1,6 +1,10 @@
 package com.pluralsight.ui;
 
-import java.util.Scanner;
+import com.pluralsight.models.PremiumTopping;
+import com.pluralsight.models.Sandwich;
+import com.pluralsight.models.Topping;
+
+import java.util.*;
 
 public class UserInterface {
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -34,10 +38,10 @@ public class UserInterface {
         } while (isShown);
     }
 
-    private void displayOrderScreen(){
+    private void displayOrderScreen() {
         boolean isShown = false;
 
-        do{
+        do {
             isShown = true;
             System.out.println("""
                     
@@ -50,8 +54,8 @@ public class UserInterface {
                     """);
 
             String option = SCANNER.nextLine();
-            switch (option){
-                case "1" -> System.out.println("Add Sandwich");
+            switch (option) {
+                case "1" -> displaySandwichScreen();
                 case "2" -> System.out.println("Add Drink");
                 case "3" -> System.out.println("Add Chips");
                 case "4" -> System.out.println("Checkout");
@@ -62,5 +66,87 @@ public class UserInterface {
                 default -> System.out.println("Invalid Option!");
             }
         } while (isShown);
+    }
+
+    private void displaySandwichScreen() {
+        boolean isShown = false;
+
+        do {
+            isShown = true;
+
+            System.out.println("------- Sandwich Creation Screen ------");
+            String breadType = selectBread();
+            String sandwichSize = selectSandwichSize();
+            List<Topping> toppings = selectToppings();
+            boolean toasted = selectToasted();
+
+            Sandwich sandwich =  new Sandwich(breadType, sandwichSize, toppings, toasted);
+            System.out.println("sandwich = " + sandwich);
+
+        } while (isShown);
+    }
+
+    private boolean selectToasted() {
+        System.out.println("Would you like your sandwich toasted? (y/n) ");
+        String toasted = SCANNER.nextLine();
+        return toasted.equalsIgnoreCase("y") ? true : false;
+    }
+
+    private String selectSandwichSize() {
+        System.out.println("""
+                Select your sandwich size:
+                    - 4
+                    - 8
+                    - 12
+                """);
+        return SCANNER.nextLine();
+    }
+
+    private String selectBread() {
+        System.out.println("""
+                Select your bread:
+                    - White
+                    - Wheat
+                    - Rye
+                    - Wrap
+                """);
+        return SCANNER.nextLine();
+    }
+
+    private List<Topping> selectToppings(){
+        List<Topping> toppings= new ArrayList<>();
+
+        System.out.println("""
+                    Toppings:
+                        - Meat
+                        - Cheese
+                        - Other toppings:
+                        - Select sauces:
+                    """);
+
+        System.out.println("** Premium Toppings **");
+        System.out.println("* Meat *");
+        List<String> meatToppings = List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon");
+
+        System.out.println("Keep it BLANK if you don't want to add a topping");
+        for (String meat : meatToppings) {
+            System.out.println("Would you like to add " + meat + " to your sandwich? ");
+            String addMeat = SCANNER.nextLine();
+            String extraMeat = null;
+
+            if (!addMeat.isBlank()) {
+                System.out.println("Would you like extra?");
+                extraMeat = SCANNER.nextLine();
+
+                boolean extra = extraMeat.isBlank() ? false : true;
+                var topping = new PremiumTopping(meat, extra, "Meat");
+                System.out.println(topping);
+
+                toppings.add(topping);
+            }
+
+        }
+        System.out.println(toppings);
+        return toppings;
     }
 }
