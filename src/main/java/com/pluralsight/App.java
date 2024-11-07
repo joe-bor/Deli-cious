@@ -1,10 +1,10 @@
 package com.pluralsight;
 
-/**
- * Hello world!
- */
+import com.pluralsight.ui.UserInterface;
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        UserInterface userInterface = new UserInterface();
+        userInterface.display();
     }
 }
