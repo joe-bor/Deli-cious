@@ -40,7 +40,7 @@ public class UserInterface {
 
             String option = SCANNER.nextLine();
             switch (option) {
-                case "1" -> displayOrderScreen();
+                case "1" -> processNewOrder();
                 case "0" -> {
                     System.out.println("Exit");
                     isShown = false;
@@ -50,9 +50,31 @@ public class UserInterface {
         } while (isShown);
     }
 
+    private void processNewOrder() {
+        if (this.getOrder() == null) {
+            this.order = new Order();
+            displayOrderScreen();
+        } else {
+            System.out.println("""
+                    
+                    Active order found!
+                    [1] - Start over
+                    [2] - Continue active order
+                    """);
+            String answer = SCANNER.nextLine();
+            switch (answer) {
+                case "1" -> {
+                    this.order = new Order();
+                    displayOrderScreen();
+                }
+                case "2" -> displayOrderScreen();
+                default -> System.out.println("Invalid option!");
+            }
+        }
+    }
+
     private void displayOrderScreen() {
         boolean isShown;
-        this.order = new Order();
 
         do {
             isShown = true;
@@ -73,13 +95,19 @@ public class UserInterface {
                 case "3" -> System.out.println("Add Chips");
                 case "4" -> System.out.println("Checkout");
                 case "0" -> {
-                    System.out.println("Cancel Order & Go back");
+                    processCancelOrder();
                     isShown = false;
                 }
                 case "test" -> System.out.println(this.order); //TODO: REMOVE
                 default -> System.out.println("Invalid Option!");
             }
         } while (isShown);
+    }
+
+    private void processCancelOrder(){
+        System.out.println("Cancelling order...");
+        System.out.println("Going back to home screen...");
+        this.setOrder(null);
     }
 
     private void displaySandwichScreen() {
