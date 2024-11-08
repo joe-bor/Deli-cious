@@ -198,12 +198,11 @@ public class UserInterface {
         List<Topping> toppings = new ArrayList<>();
 
         System.out.println("""
-                Toppings:
-                    - Meat
-                    - Cheese
-                    - Other toppings
-                    - Sauces
-                    - Sides
+                Instructions:
+                    - Choose your toppings
+                    - You can select multiple values from the options
+                    - Separate them out with commas
+                    - eg. Ham,Steak,Bacon
                 """);
 
         toppings.addAll(selectMeat());
@@ -218,7 +217,7 @@ public class UserInterface {
     private List<Topping> selectSides() {
         List<Topping> sides = new ArrayList<>();
 
-        System.out.println("Here are the options for sides: ");
+        System.out.println("\nHere are the options for sides: ");
         RegularTopping.SIDES.forEach(s -> System.out.println("    - " + s));
 
         String answer = SCANNER.nextLine();
@@ -237,7 +236,7 @@ public class UserInterface {
     private List<Topping> selectSauces() {
         List<Topping> sauces = new ArrayList<>();
 
-        System.out.println("Here are the options for sauces: ");
+        System.out.println("\nHere are the options for sauces: ");
         RegularTopping.SAUCES.forEach(s -> System.out.println("    - " + s));
 
         String answer = SCANNER.nextLine();
@@ -256,7 +255,7 @@ public class UserInterface {
     private List<Topping> selectRegularToppings() {
         List<Topping> regularToppings = new ArrayList<>();
 
-        System.out.println("Here are the options for regular toppings: ");
+        System.out.println("\nHere are the options for regular toppings: ");
         RegularTopping.OPTIONS.forEach(s -> System.out.println("    - " + s));
 
         String answer = SCANNER.nextLine();
@@ -283,7 +282,7 @@ public class UserInterface {
         String[] meatArr = answer.split(Pattern.quote(","));
         for (String meat : meatArr) {
             if (PremiumTopping.MEAT_OPTIONS.contains(meat.trim())) {
-                System.out.print("Would you like extra for " + meat + " ? (y/n)");
+                System.out.print("Would you like extra for " + meat + "? (y/n) ");
                 String extraMeat = SCANNER.nextLine();
 
                 boolean extra = extraMeat.equalsIgnoreCase("y");
@@ -299,14 +298,14 @@ public class UserInterface {
     private List<Topping> selectCheese() {
         List<Topping> cheeseToppings = new ArrayList<>();
 
-        System.out.println("Here are the options for cheese: ");
+        System.out.println("\nHere are the options for cheese: ");
         PremiumTopping.CHEESE_OPTIONS.forEach(s -> System.out.println("  - " + s));
 
         String answer = SCANNER.nextLine().trim();
         String[] cheeseArr = answer.split(Pattern.quote(","));
         for (String cheese : cheeseArr) {
             if (PremiumTopping.CHEESE_OPTIONS.contains(cheese.trim())) {
-                System.out.print("Would you like extra for " + cheese + " ? (y/n)");
+                System.out.print("Would you like extra for " + cheese + "? (y/n) ");
                 String extraCheese = SCANNER.nextLine();
 
                 boolean extra = extraCheese.equalsIgnoreCase("y");

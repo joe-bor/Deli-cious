@@ -28,4 +28,17 @@ public class Order {
     public void addChip(Chip chip){
         this.getChips().add(chip);
     }
+
+
+    @Override
+    public String toString() {
+        return String.format("""
+                ** ORDER **
+                Customer: %-10s 
+                Sandwich:
+                %-30s
+                Drinks: %-10s
+                Chips: %-10ss
+                """, this.getCustomer(), this.getSandwiches(), this.getDrinks(), this.getChips());
+    }
 }
