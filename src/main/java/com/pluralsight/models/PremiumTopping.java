@@ -19,10 +19,10 @@ public class PremiumTopping extends Topping implements SizeDependentPricing {
         put("8", 1.00);
         put("12", 1.50);
     }};
-    public static final Set<String> MEAT_OPTIONS =  new HashSet(){{
+    public static final HashSet MEAT_OPTIONS = new HashSet() {{
         addAll(List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"));
     }};
-    public static final Set<String> CHEESE_OPTIONS = new HashSet(){{
+    public static final HashSet CHEESE_OPTIONS = new HashSet() {{
         addAll(List.of("American", "Provolone", "Cheddar", "Swiss"));
     }};
 

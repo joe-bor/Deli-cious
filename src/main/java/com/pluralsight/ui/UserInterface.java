@@ -73,7 +73,7 @@ public class UserInterface {
             String option = SCANNER.nextLine();
             switch (option) {
                 case "1" -> displaySandwichScreen();
-                case "2" -> System.out.println("Add Drink");
+                case "2" -> processAddDrink();
                 case "3" -> System.out.println("Add Chips");
                 case "4" -> System.out.println("Checkout");
                 case "0" -> {
@@ -84,6 +84,27 @@ public class UserInterface {
                 default -> System.out.println("Invalid Option!");
             }
         } while (isShown);
+    }
+
+    private void processAddDrink() {
+        System.out.print("What flavor of drink do you want? ");
+        String drinkFlavor = SCANNER.nextLine();
+        System.out.print("What size? (Small/Medium/Large) ");
+        String drinkSize = SCANNER.nextLine();
+
+        Drink newDrink = switch (drinkSize){
+            case "Small" -> new Drink(drinkFlavor,"Small");
+            case "Medium" -> new Drink(drinkFlavor,"Medium");
+            case "Large" -> new Drink(drinkFlavor,"Large");
+            default -> {
+                System.out.println("Invalid option! Pick between Small/Medium/Large");
+                yield null;
+            }
+        };
+        if (newDrink != null) {
+            System.out.println("Added a drink to the order: " + newDrink);
+            this.getOrder().setDrink(newDrink);
+        }
     }
 
     private void processCancelOrder() {
