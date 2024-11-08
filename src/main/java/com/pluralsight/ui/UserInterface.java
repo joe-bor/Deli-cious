@@ -51,26 +51,8 @@ public class UserInterface {
     }
 
     private void processNewOrder() {
-        if (this.getOrder() == null) {
-            this.order = new Order();
-            displayOrderScreen();
-        } else {
-            System.out.println("""
-                    
-                    Active order found!
-                    [1] - Start over
-                    [2] - Continue active order
-                    """);
-            String answer = SCANNER.nextLine();
-            switch (answer) {
-                case "1" -> {
-                    this.order = new Order();
-                    displayOrderScreen();
-                }
-                case "2" -> displayOrderScreen();
-                default -> System.out.println("Invalid option!");
-            }
-        }
+        this.order = new Order();
+        displayOrderScreen();
     }
 
     private void displayOrderScreen() {
@@ -104,7 +86,7 @@ public class UserInterface {
         } while (isShown);
     }
 
-    private void processCancelOrder(){
+    private void processCancelOrder() {
         System.out.println("Cancelling order...");
         System.out.println("Going back to home screen...");
         this.setOrder(null);
@@ -191,15 +173,75 @@ public class UserInterface {
                 Toppings:
                     - Meat
                     - Cheese
-                    - Other toppings:
-                    - Select sauces:
+                    - Other toppings
+                    - Sauces
+                    - Sides
                 """);
 
-        List<Topping> meatToppings = selectMeat();
-        List<Topping> cheeseToppings = selectCheese();
-        toppings.addAll(meatToppings);
-        toppings.addAll(cheeseToppings);
+        toppings.addAll(selectMeat());
+        toppings.addAll(selectCheese());
+        toppings.addAll(selectRegularToppings());
+        toppings.addAll(selectSauces());
+        toppings.addAll(selectSides());
+
         return toppings;
+    }
+
+    private List<Topping> selectSides() {
+        List<Topping> sides = new ArrayList<>();
+
+        System.out.println("Here are the options for sides: ");
+        RegularTopping.SIDES.forEach(s -> System.out.println("    - " + s));
+
+        String answer = SCANNER.nextLine();
+        String[] sidesArr = answer.split(Pattern.quote(","));
+        for (String side : sidesArr) {
+            if (RegularTopping.SIDES.contains(side.trim())) {
+                var topping = new RegularTopping(side);
+                sides.add(topping);
+            } else {
+                System.out.printf("Sorry, we do not carry %s\n", side);
+            }
+        }
+        return sides;
+    }
+
+    private List<Topping> selectSauces() {
+        List<Topping> sauces = new ArrayList<>();
+
+        System.out.println("Here are the options for sauces: ");
+        RegularTopping.SAUCES.forEach(s -> System.out.println("    - " + s));
+
+        String answer = SCANNER.nextLine();
+        String[] saucesArr = answer.split(Pattern.quote(","));
+        for (String sauce : saucesArr) {
+            if (RegularTopping.SAUCES.contains(sauce.trim())) {
+                var topping = new RegularTopping(sauce);
+                sauces.add(topping);
+            } else {
+                System.out.printf("Sorry, we do not carry %s\n", sauce);
+            }
+        }
+        return sauces;
+    }
+
+    private List<Topping> selectRegularToppings() {
+        List<Topping> regularToppings = new ArrayList<>();
+
+        System.out.println("Here are the options for regular toppings: ");
+        RegularTopping.OPTIONS.forEach(s -> System.out.println("    - " + s));
+
+        String answer = SCANNER.nextLine();
+        String[] regularArr = answer.split(Pattern.quote(","));
+        for (String regularTopping : regularArr) {
+            if (RegularTopping.OPTIONS.contains(regularTopping.trim())) {
+                var topping = new RegularTopping(regularTopping);
+                regularToppings.add(topping);
+            } else {
+                System.out.printf("Sorry, we do not carry %s\n", regularTopping);
+            }
+        }
+        return regularToppings;
     }
 
     private List<Topping> selectMeat() {

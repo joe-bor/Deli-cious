@@ -2,12 +2,14 @@ package com.pluralsight.models;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.*;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class PremiumTopping extends Topping {
-    private static Map<String, Double> SIZE_TO_PRICE = new HashMap<>() {{
+    private static final Map<String, Double> SIZE_TO_PRICE = new HashMap<>() {{
         put("4", 1.00);
         put("8", 2.00);
         put("12", 3.00);
@@ -20,7 +22,6 @@ public class PremiumTopping extends Topping {
     public static final Set<String> MEAT_OPTIONS =  new HashSet(){{
         addAll(List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"));
     }};
-
     public static final Set<String> CHEESE_OPTIONS = new HashSet(){{
         addAll(List.of("American", "Provolone", "Cheddar", "Swiss"));
     }};
