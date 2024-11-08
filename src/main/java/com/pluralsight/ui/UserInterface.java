@@ -1,18 +1,27 @@
 package com.pluralsight.ui;
 
-import com.pluralsight.models.PremiumTopping;
-import com.pluralsight.models.Sandwich;
-import com.pluralsight.models.Store;
-import com.pluralsight.models.Topping;
+import com.pluralsight.models.*;
+import lombok.Data;
 
 import java.util.*;
 import java.util.regex.Pattern;
 
+@Data
 public class UserInterface {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private Store store;
+    private Store store = initStore();
+    private Order order;
+    private Sandwich currentSandwich;
 
     public void display() {
+        System.out.println(String.format("""
+                ========================================
+                            Welcome to %s
+                            %s
+                ========================================
+                
+                """, this.store.getName(), this.store.getAddress()));
+
         displayHomeScreen();
     }
 
@@ -43,6 +52,7 @@ public class UserInterface {
 
     private void displayOrderScreen() {
         boolean isShown;
+        this.order = new Order();
 
         do {
             isShown = true;
@@ -66,6 +76,7 @@ public class UserInterface {
                     System.out.println("Cancel Order & Go back");
                     isShown = false;
                 }
+                case "test" -> System.out.println(this.order); //TODO: REMOVE
                 default -> System.out.println("Invalid Option!");
             }
         } while (isShown);
@@ -76,22 +87,46 @@ public class UserInterface {
 
         do {
             isShown = true;
+            createSandwich();
 
-            System.out.println("------- Sandwich Creation Screen ------");
-            String breadType = selectBread();
-            String sandwichSize = selectSandwichSize();
-            List<Topping> toppings = selectToppings();
-            boolean toasted = selectToasted();
+            // prompt to make another sandwich?
+            System.out.println("Would you like to add more sandwich? (y/n)");
+            String answer = SCANNER.nextLine();
 
-            Sandwich sandwich = createSandwich(breadType, sandwichSize, toppings, toasted);
+            if (answer.equalsIgnoreCase("n")) {
+                isShown = false;
+            }
         } while (isShown);
     }
 
-    private Sandwich createSandwich(String breadType, String sandwichSize, List<Topping> toppings, boolean toasted) {
-        System.out.println("Sandwich created!");
-        Sandwich sandwich = new Sandwich(breadType, sandwichSize, toppings, toasted);
-        System.out.println(sandwich);
-        return sandwich;
+    private void createSandwich() {
+        System.out.println("------- Sandwich Creation Screen ------");
+        // create a sandwich (just bread and size)
+        String breadType = selectBread();
+        String sandwichSize = selectSandwichSize();
+        currentSandwich = new Sandwich(breadType, sandwichSize);
+
+        // add toppings to the sandwich
+        List<Topping> toppings = selectToppings();
+        currentSandwich.addToppings(toppings);
+
+        // alter toasted value of sandwich
+        boolean toasted = selectToasted();
+        currentSandwich.setToasted(toasted);
+
+        if (currentSandwich != null) {
+            // print out to customers the sandwich they just created
+            System.out.println("\nSandwich created!");
+            System.out.println(currentSandwich);
+            // add this sandwich to running order
+            this.order.addSandwich(currentSandwich);
+
+            // show current order
+            System.out.println(this.order);
+
+            // reset sandwich since customers might add more
+            this.setCurrentSandwich(null);
+        }
     }
 
     private boolean selectToasted() {
@@ -172,7 +207,7 @@ public class UserInterface {
         String answer = SCANNER.nextLine().trim();
         String[] cheeseArr = answer.split(Pattern.quote(","));
         for (String cheese : cheeseArr) {
-            if (PremiumTopping.MEAT_OPTIONS.contains(cheese.trim())) {
+            if (PremiumTopping.CHEESE_OPTIONS.contains(cheese.trim())) {
                 System.out.print("Would you like extra for " + cheese + " ? (y/n)");
                 String extraCheese = SCANNER.nextLine();
 
@@ -184,5 +219,9 @@ public class UserInterface {
             }
         }
         return cheeseToppings;
+    }
+
+    private Store initStore() {
+        return new Store("Deli Store", "123 Main St");
     }
 }

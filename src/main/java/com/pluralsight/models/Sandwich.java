@@ -3,6 +3,7 @@ package com.pluralsight.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,23 @@ public class Sandwich {
     private String sandwichSize;
     private List<Topping> toppings;
     private boolean toasted;
+
+    public Sandwich(String breadType, String sandwichSize){
+         this.breadType = breadType;
+         this.sandwichSize = sandwichSize;
+         this.toppings = new ArrayList<>();
+         this.toasted = false;
+    }
+
+    public void addTopping(Topping topping){
+        this.getToppings().add(topping);
+    }
+
+    public void addToppings(List<Topping> toppings){
+        for (Topping topping : toppings) {
+            this.getToppings().add(topping);
+        }
+    }
 
     @Override
     public String toString() {

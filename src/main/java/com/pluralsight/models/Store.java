@@ -2,6 +2,7 @@ package com.pluralsight.models;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,5 +14,6 @@ public class Store {
     public Store(String name, String address) {
         this.name = name;
         this.address = address;
+        this.transactions = new ArrayList<>();
     }
 }

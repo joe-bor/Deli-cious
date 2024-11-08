@@ -14,8 +14,8 @@ public class PremiumTopping extends Topping {
     }};
     private static final Map<String, Double> SIZE_TO_EXTRA_PRICE = new HashMap<>() {{
         put("4", .50);
-        put("4", 1.00);
-        put("4", 1.50);
+        put("8", 1.00);
+        put("12", 1.50);
     }};
     public static final Set<String> MEAT_OPTIONS =  new HashSet(){{
         addAll(List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"));
