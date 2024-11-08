@@ -8,4 +8,14 @@ import lombok.Data;
 public class Chip {
     private String name;
     private double cost;
+
+    public Chip(String name){
+        this.name = name;
+        this.cost = 1.50;
+    }
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }

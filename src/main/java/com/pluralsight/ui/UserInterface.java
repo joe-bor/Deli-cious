@@ -73,8 +73,8 @@ public class UserInterface {
             String option = SCANNER.nextLine();
             switch (option) {
                 case "1" -> displaySandwichScreen();
-                case "2" -> processAddDrink();
-                case "3" -> System.out.println("Add Chips");
+                case "2" -> processAddDrinkToOrder();
+                case "3" -> processAddChipToOrder();
                 case "4" -> System.out.println("Checkout");
                 case "0" -> {
                     processCancelOrder();
@@ -86,7 +86,16 @@ public class UserInterface {
         } while (isShown);
     }
 
-    private void processAddDrink() {
+    private void processAddChipToOrder() {
+        System.out.print("What kind of chips would you like? ");
+        String chipsName = SCANNER.nextLine();
+
+        Chip newChip = new Chip(chipsName);
+        this.order.addChip(newChip);
+        System.out.printf("Added %s (chips) to the order", newChip);
+    }
+
+    private void processAddDrinkToOrder() {
         System.out.print("What flavor of drink do you want? ");
         String drinkFlavor = SCANNER.nextLine();
         System.out.print("What size? (Small/Medium/Large) ");
@@ -102,8 +111,8 @@ public class UserInterface {
             }
         };
         if (newDrink != null) {
-            System.out.println("Added a drink to the order: " + newDrink);
-            this.getOrder().setDrink(newDrink);
+            System.out.printf("Added a %s drink to the order", newDrink);
+            this.getOrder().addDrink(newDrink);
         }
     }
 
