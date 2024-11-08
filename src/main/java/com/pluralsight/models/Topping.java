@@ -4,13 +4,12 @@ import lombok.Getter;
 
 @Getter
 public abstract class Topping {
-    private final String name;
+    private String name;
 
-    Topping(String name){
+    Topping(String name) {
         this.name = name;
     }
 
-    Topping(){
-        this.name = "Default topping name";
+    Topping() {
     }
 }

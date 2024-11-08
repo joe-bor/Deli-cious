@@ -3,8 +3,7 @@ package com.pluralsight.models;
 
 import lombok.Data;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Data
 public class PremiumTopping extends Topping {
@@ -17,6 +16,13 @@ public class PremiumTopping extends Topping {
         put("4", .50);
         put("4", 1.00);
         put("4", 1.50);
+    }};
+    public static final Set<String> MEAT_OPTIONS =  new HashSet(){{
+        addAll(List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"));
+    }};
+
+    public static final Set<String> CHEESE_OPTIONS = new HashSet(){{
+        addAll(List.of("American", "Provolone", "Cheddar", "Swiss"));
     }};
 
     private boolean extra;
