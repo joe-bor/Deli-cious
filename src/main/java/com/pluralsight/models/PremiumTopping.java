@@ -8,7 +8,7 @@ import java.util.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PremiumTopping extends Topping {
+public class PremiumTopping extends Topping implements SizeDependentPricing {
     private static final Map<String, Double> SIZE_TO_PRICE = new HashMap<>() {{
         put("4", 1.00);
         put("8", 2.00);
@@ -35,10 +35,11 @@ public class PremiumTopping extends Topping {
         this.type = type;
     }
 
-    public double getPrice(String breadSize) {
+    @Override
+    public double getPriceBasedOn(String size) {
         double total = 0;
-        total += SIZE_TO_PRICE.getOrDefault(breadSize, 0.0);
-        total += SIZE_TO_EXTRA_PRICE.getOrDefault(breadSize, 0.0);
+        total += SIZE_TO_PRICE.getOrDefault(size, 2.0);
+        total += SIZE_TO_EXTRA_PRICE.getOrDefault(size, 2.0);
 
         return total;
     }
