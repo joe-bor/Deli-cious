@@ -11,7 +11,6 @@ public class UserInterface {
     private static final Scanner SCANNER = new Scanner(System.in);
     private Store store = initStore();
     private Order order;
-    private Sandwich currentSandwich;
 
     public void display() {
         System.out.println(String.format("""
@@ -72,7 +71,7 @@ public class UserInterface {
 
             String option = SCANNER.nextLine();
             switch (option) {
-                case "1" -> displaySandwichScreen();
+                case "1" -> processAddSandwichToOrder();
                 case "2" -> processAddDrinkToOrder();
                 case "3" -> processAddChipToOrder();
                 case "4" -> System.out.println("Checkout");
@@ -92,7 +91,7 @@ public class UserInterface {
 
         Chip newChip = new Chip(chipsName);
         this.order.addChip(newChip);
-        System.out.printf("Added %s (chips) to the order", newChip);
+        System.out.printf("Added %s (chips) to the order\n", newChip);
     }
 
     private void processAddDrinkToOrder() {
@@ -101,17 +100,17 @@ public class UserInterface {
         System.out.print("What size? (Small/Medium/Large) ");
         String drinkSize = SCANNER.nextLine();
 
-        Drink newDrink = switch (drinkSize){
-            case "Small" -> new Drink(drinkFlavor,"Small");
-            case "Medium" -> new Drink(drinkFlavor,"Medium");
-            case "Large" -> new Drink(drinkFlavor,"Large");
+        Drink newDrink = switch (drinkSize) {
+            case "Small" -> new Drink(drinkFlavor, "Small");
+            case "Medium" -> new Drink(drinkFlavor, "Medium");
+            case "Large" -> new Drink(drinkFlavor, "Large");
             default -> {
                 System.out.println("Invalid option! Pick between Small/Medium/Large");
                 yield null;
             }
         };
         if (newDrink != null) {
-            System.out.printf("Added a %s drink to the order", newDrink);
+            System.out.printf("Added a %s drink to the order\n", newDrink);
             this.getOrder().addDrink(newDrink);
         }
     }
@@ -122,12 +121,12 @@ public class UserInterface {
         this.setOrder(null);
     }
 
-    private void displaySandwichScreen() {
+    private void processAddSandwichToOrder() {
         boolean isShown;
 
         do {
             isShown = true;
-            createSandwich();
+            createSandwichScreen();
 
             // prompt to make another sandwich?
             System.out.println("Would you like to add more sandwich? (y/n)");
@@ -139,8 +138,10 @@ public class UserInterface {
         } while (isShown);
     }
 
-    private void createSandwich() {
+    private void createSandwichScreen() {
         System.out.println("------- Sandwich Creation Screen ------");
+        Sandwich currentSandwich = null;
+
         // create a sandwich (just bread and size)
         String breadType = selectBread();
         String sandwichSize = selectSandwichSize();
@@ -163,9 +164,6 @@ public class UserInterface {
 
             // show current order
             System.out.println(this.order);
-
-            // reset sandwich since customers might add more
-            this.setCurrentSandwich(null);
         }
     }
 
