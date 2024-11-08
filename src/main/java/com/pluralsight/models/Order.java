@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -64,16 +65,30 @@ public class Order {
 
     @Override
     public String toString() {
+        String formattedSandwiches = sandwiches.stream()
+                .map(Sandwich::toString)
+                .collect(Collectors.joining("\n"));
+
+        String formattedDrinks = drinks.stream()
+                .map(Drink::toString)
+                .collect(Collectors.joining(", "));
+
+        String formattedChips = chips.stream()
+                .map(Chip::toString)
+                .collect(Collectors.joining(", "));
+
         return String.format("""
-                ** ORDER **
-                Customer: %-10s
-                Sandwich:
-                %-30s
-                Drinks: %-10s
-                Chips: %-10ss
-                -----
-                Total: %.2f
-                
-                """, this.getCustomer(), this.getSandwiches(), this.getDrinks(), this.getChips(), this.getTotalCost());
+            ** ORDER **
+            Customer: %-10s
+            Sandwich:
+            %-30s
+            Drinks: %-10s
+            Chips: %-10s
+            -----
+            Total: %.2f
+            
+            """,
+                this.getCustomer(), formattedSandwiches, formattedDrinks, formattedChips, this.getTotalCost());
     }
+
 }
