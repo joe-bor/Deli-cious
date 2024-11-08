@@ -17,16 +17,48 @@ public class Order {
     private List<Chip> chips = new ArrayList<>();
 
 
-    public void addSandwich(Sandwich sandwich){
+    public void addSandwich(Sandwich sandwich) {
         this.getSandwiches().add(sandwich);
     }
 
-    public void addDrink(Drink drink){
+    public void addDrink(Drink drink) {
         this.getDrinks().add(drink);
     }
 
-    public void addChip(Chip chip){
+    public void addChip(Chip chip) {
         this.getChips().add(chip);
+    }
+
+    public double getTotalCost() {
+        return getSandwichCost() + getDrinkCost() + getChipsCost();
+    }
+
+    public double getSandwichCost() {
+        double total = 0;
+
+        for (Sandwich sandwich : this.getSandwiches()) {
+            String sandwichSize = sandwich.getSandwichSize();
+            total += Sandwich.SIZE_TO_PRICE.get(sandwichSize);
+
+            for (Topping topping : sandwich.getToppings()) {
+                if (topping instanceof PremiumTopping premiumTopping) {
+                    total += premiumTopping.getPriceBasedOn(sandwichSize);
+                }
+            }
+        }
+        return total;
+    }
+
+    public double getDrinkCost() {
+        return this.getDrinks().stream()
+                .mapToDouble(Drink::getPriceBasedOnSize)
+                .sum();
+    }
+
+    public double getChipsCost() {
+        return this.getChips().stream()
+                .map(Chip::getCost)
+                .reduce(0.0, Double::sum);
     }
 
 
@@ -34,11 +66,14 @@ public class Order {
     public String toString() {
         return String.format("""
                 ** ORDER **
-                Customer: %-10s 
+                Customer: %-10s
                 Sandwich:
                 %-30s
                 Drinks: %-10s
                 Chips: %-10ss
-                """, this.getCustomer(), this.getSandwiches(), this.getDrinks(), this.getChips());
+                -----
+                Total: %.2f
+                
+                """, this.getCustomer(), this.getSandwiches(), this.getDrinks(), this.getChips(), this.getTotalCost());
     }
 }

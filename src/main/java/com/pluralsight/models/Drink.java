@@ -23,7 +23,7 @@ public class Drink implements SizeDependentPricing {
         return SIZE_TO_PRICE.getOrDefault(size, 3.00);
     }
 
-    public double getPriceBasedOn(){
+    public double getPriceBasedOnSize(){
         return SIZE_TO_PRICE.getOrDefault(this.getSize(), 3.00);
     }
 

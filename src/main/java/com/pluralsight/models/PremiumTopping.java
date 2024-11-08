@@ -1,55 +1,15 @@
 package com.pluralsight.models;
 
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.*;
-
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PremiumTopping extends Topping implements SizeDependentPricing {
-    private static final Map<String, Double> SIZE_TO_PRICE = new HashMap<>() {{
-        put("4", 1.00);
-        put("8", 2.00);
-        put("12", 3.00);
-    }};
-    private static final Map<String, Double> SIZE_TO_EXTRA_PRICE = new HashMap<>() {{
-        put("4", .50);
-        put("8", 1.00);
-        put("12", 1.50);
-    }};
-    public static final HashSet MEAT_OPTIONS = new HashSet() {{
-        addAll(List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"));
-    }};
-    public static final HashSet CHEESE_OPTIONS = new HashSet() {{
-        addAll(List.of("American", "Provolone", "Cheddar", "Swiss"));
-    }};
-
+public abstract class PremiumTopping extends Topping implements SizeDependentPricing {
     private boolean extra;
-    private String type; // Meat || Cheese
 
-    public PremiumTopping(String name, boolean extra, String type) {
+    public PremiumTopping(String name, boolean extra) {
         super(name);
         this.extra = extra;
-        this.type = type;
-    }
-
-    @Override
-    public double getPriceBasedOn(String size) {
-        double total = 0;
-        total += SIZE_TO_PRICE.getOrDefault(size, 2.0);
-        total += SIZE_TO_EXTRA_PRICE.getOrDefault(size, 2.0);
-
-        return total;
-    }
-
-    @Override
-    public String toString() {
-        return "PremiumTopping{" +
-                "name=" + super.getName() +
-                " extra=" + extra +
-                ", type='" + type + '\'' +
-                '}';
     }
 }

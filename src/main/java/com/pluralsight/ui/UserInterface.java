@@ -140,7 +140,7 @@ public class UserInterface {
 
     private void createSandwichScreen() {
         System.out.println("------- Sandwich Creation Screen ------");
-        Sandwich currentSandwich = null;
+        Sandwich currentSandwich;
 
         // create a sandwich (just bread and size)
         String breadType = selectBread();
@@ -276,17 +276,17 @@ public class UserInterface {
 
         System.out.println("** Premium Toppings **");
         System.out.println("Here are the options for meat: ");
-        PremiumTopping.MEAT_OPTIONS.forEach(s -> System.out.println("  - " + s));
+        MeatTopping.OPTIONS.forEach(s -> System.out.println("  - " + s));
 
         String answer = SCANNER.nextLine().trim();
         String[] meatArr = answer.split(Pattern.quote(","));
         for (String meat : meatArr) {
-            if (PremiumTopping.MEAT_OPTIONS.contains(meat.trim())) {
+            if (MeatTopping.OPTIONS.contains(meat.trim())) {
                 System.out.print("Would you like extra for " + meat + "? (y/n) ");
                 String extraMeat = SCANNER.nextLine();
 
                 boolean extra = extraMeat.equalsIgnoreCase("y");
-                var topping = new PremiumTopping(meat, extra, "Meat");
+                var topping = new MeatTopping(meat, extra);
                 meatToppings.add(topping);
             } else {
                 System.out.printf("Sorry, we do not carry %s\n", meat);
@@ -299,17 +299,17 @@ public class UserInterface {
         List<Topping> cheeseToppings = new ArrayList<>();
 
         System.out.println("\nHere are the options for cheese: ");
-        PremiumTopping.CHEESE_OPTIONS.forEach(s -> System.out.println("  - " + s));
+        CheeseTopping.OPTIONS.forEach(s -> System.out.println("  - " + s));
 
         String answer = SCANNER.nextLine().trim();
         String[] cheeseArr = answer.split(Pattern.quote(","));
         for (String cheese : cheeseArr) {
-            if (PremiumTopping.CHEESE_OPTIONS.contains(cheese.trim())) {
+            if (CheeseTopping.OPTIONS.contains(cheese.trim())) {
                 System.out.print("Would you like extra for " + cheese + "? (y/n) ");
                 String extraCheese = SCANNER.nextLine();
 
                 boolean extra = extraCheese.equalsIgnoreCase("y");
-                var topping = new PremiumTopping(cheese, extra, "Cheese");
+                var topping = new CheeseTopping(cheese, extra);
                 cheeseToppings.add(topping);
             } else {
                 System.out.printf("Sorry, we do not carry %s\n", cheese);
