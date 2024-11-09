@@ -1,23 +1,23 @@
-package com.pluralsight.models;
+package com.pluralsight.models.topping;
 
 import java.util.*;
 
-public class CheeseTopping extends PremiumTopping {
+public class MeatTopping extends PremiumTopping {
     private static final Map<String, Double> SIZE_TO_PRICE = new HashMap<>() {{
-        put("4", 0.75);
-        put("8", 1.50);
-        put("12", 2.25);
+        put("4", 1.00);
+        put("8", 2.00);
+        put("12", 3.00);
     }};
     private static final Map<String, Double> SIZE_TO_EXTRA_PRICE = new HashMap<>() {{
-        put("4", .30);
-        put("8", 0.60);
-        put("12", 0.90);
+        put("4", .50);
+        put("8", 1.00);
+        put("12", 1.50);
     }};
     public static final Set<String> OPTIONS = new HashSet<>() {{
-        addAll(List.of("American", "Provolone", "Cheddar", "Swiss"));
+        addAll(List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"));
     }};
 
-    public CheeseTopping(String name, boolean extra) {
+    public MeatTopping(String name, boolean extra) {
         super(name, extra);
     }
 

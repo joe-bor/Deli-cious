@@ -1,5 +1,7 @@
 package com.pluralsight.models;
 
+import com.pluralsight.models.topping.PremiumTopping;
+import com.pluralsight.models.topping.Topping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

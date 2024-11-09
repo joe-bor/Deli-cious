@@ -1,4 +1,4 @@
-package com.pluralsight.models;
+package com.pluralsight.models.topping;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
