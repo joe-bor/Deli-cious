@@ -18,7 +18,6 @@ public class UserInterface {
                             Welcome to %s
                             %s
                 ========================================
-                
                 """, this.store.getName(), this.store.getAddress()));
 
         displayHomeScreen();
