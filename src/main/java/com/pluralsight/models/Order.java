@@ -1,7 +1,5 @@
 package com.pluralsight.models;
 
-import com.pluralsight.models.topping.PremiumTopping;
-import com.pluralsight.models.topping.Topping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,20 +34,10 @@ public class Order {
         return getSandwichCost() + getDrinkCost() + getChipsCost();
     }
 
-    public double getSandwichCost() { // TODO: Rework after changing/applying interface
-        double total = 0;
-
-//        for (Sandwich sandwich : this.getSandwiches()) {
-//            Size sandwichSize = sandwich.getSandwichSize();
-//            total += Sandwich.SIZE_TO_PRICE.get(sandwichSize);
-//
-//            for (Topping topping : sandwich.getToppings()) {
-//                if (topping instanceof PremiumTopping premiumTopping) {
-//                    total += premiumTopping.getPriceBasedOn(sandwichSize);
-//                }
-//            }
-//        }
-        return total;
+    public double getSandwichCost() {
+        return this.getSandwiches().stream()
+                .mapToDouble(Sandwich::getTotalCost)
+                .sum();
     }
 
     public double getDrinkCost() {
@@ -80,16 +68,16 @@ public class Order {
                 .collect(Collectors.joining(", "));
 
         return String.format("""
-            ** ORDER **
-            Customer: %-10s
-            Sandwich:
-            %-30s
-            Drinks: %-10s
-            Chips: %-10s
-            -----
-            Total: %.2f
-            
-            """,
+                        ** ORDER **
+                        Customer: %-10s
+                        Sandwich:
+                        %-30s
+                        Drinks: %-10s
+                        Chips: %-10s
+                        -----
+                        Total: %.2f
+                        
+                        """,
                 this.getCustomer(), formattedSandwiches, formattedDrinks, formattedChips, this.getTotalCost());
     }
 

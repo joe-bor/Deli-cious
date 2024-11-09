@@ -37,18 +37,27 @@ public class Sandwich implements SizeDependentPricing {
         }
     }
 
-//    private double getBreadCost(){
-//        return getPriceBasedOnSize(this.getSandwichSize());
-//    }
-//
-//    private double getToppingsCost(){
-//        this.getToppings().stream()
-//                .mapToDouble(topping -> {
-//                    if (topping instanceof PremiumTopping){
-//                        yield ((PremiumTopping) topping).getPriceBasedOnSize()
-//                    }
-//                })
-//    }
+    private double getBreadCost() {
+        return getPriceBasedOnSize(this.getSandwichSize());
+    }
+
+    private double getToppingsCost() {
+        return this.getToppings().stream()
+                .mapToDouble(topping -> {
+                    // check if topping is premium
+                    if (topping instanceof PremiumTopping premiumTopping) {
+                        // topping's implementation of getPriceBasedOnSize takes care of the 'extra' and its cost
+                        return premiumTopping.getPriceBasedOnSize(this.getSandwichSize());
+                    } else {
+                        // topping is free if not premium
+                        return 0;
+                    }
+                }).sum();
+    }
+
+    public double getTotalCost() {
+        return getBreadCost() + getToppingsCost();
+    }
 
     @Override
     public double getPriceBasedOnSize(Size size) {
