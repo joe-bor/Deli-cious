@@ -106,9 +106,9 @@ public class UserInterface {
         String drinkSize = SCANNER.nextLine();
 
         Drink newDrink = switch (drinkSize) {
-            case "Small" -> new Drink(drinkFlavor, "Small");
-            case "Medium" -> new Drink(drinkFlavor, "Medium");
-            case "Large" -> new Drink(drinkFlavor, "Large");
+            case "Small" -> new Drink(drinkFlavor, Size.SMALL);
+            case "Medium" -> new Drink(drinkFlavor, Size.MEDIUM);
+            case "Large" -> new Drink(drinkFlavor, Size.LARGE);
             default -> {
                 System.out.println("Invalid option! Pick between Small/Medium/Large");
                 yield null;

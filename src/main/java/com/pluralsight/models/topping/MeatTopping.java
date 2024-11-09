@@ -1,18 +1,10 @@
 package com.pluralsight.models.topping;
 
+import com.pluralsight.models.enums.Size;
+
 import java.util.*;
 
 public class MeatTopping extends PremiumTopping {
-    private static final Map<String, Double> SIZE_TO_PRICE = new HashMap<>() {{
-        put("4", 1.00);
-        put("8", 2.00);
-        put("12", 3.00);
-    }};
-    private static final Map<String, Double> SIZE_TO_EXTRA_PRICE = new HashMap<>() {{
-        put("4", .50);
-        put("8", 1.00);
-        put("12", 1.50);
-    }};
     public static final Set<String> OPTIONS = new HashSet<>() {{
         addAll(List.of("Steak", "Ham", "Salami", "Roast Beef", "Chicken", "Bacon"));
     }};
@@ -22,10 +14,22 @@ public class MeatTopping extends PremiumTopping {
     }
 
     @Override
-    public double getPriceBasedOn(String size) {
+    public double getPriceBasedOnSize(Size size) {
         double total = 0;
-        total += SIZE_TO_PRICE.getOrDefault(size, 2.0);
-        total += SIZE_TO_EXTRA_PRICE.getOrDefault(size, 2.0);
+
+        total += switch (size) {
+            case SMALL -> 1.00;
+            case MEDIUM -> 2.00;
+            case LARGE -> 3.00;
+        };
+
+        if (this.isExtra()) {
+            total += switch (size) {
+                case SMALL -> .50;
+                case MEDIUM -> 1.00;
+                case LARGE -> 1.50;
+            };
+        }
 
         return total;
     }

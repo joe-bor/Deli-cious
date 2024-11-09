@@ -8,19 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
-public class Sandwich {
-    public static final Map<String, Double> SIZE_TO_PRICE = new HashMap<>() {{
-        put("4", 5.50);
-        put("8", 7.0);
-        put("12", 8.50);
-    }};
+public class Sandwich implements SizeDependentPricing {
 
     private BreadType breadType;
     private Size sandwichSize;
@@ -42,6 +35,28 @@ public class Sandwich {
         for (Topping topping : toppings) {
             this.addTopping(topping);
         }
+    }
+
+//    private double getBreadCost(){
+//        return getPriceBasedOnSize(this.getSandwichSize());
+//    }
+//
+//    private double getToppingsCost(){
+//        this.getToppings().stream()
+//                .mapToDouble(topping -> {
+//                    if (topping instanceof PremiumTopping){
+//                        yield ((PremiumTopping) topping).getPriceBasedOnSize()
+//                    }
+//                })
+//    }
+
+    @Override
+    public double getPriceBasedOnSize(Size size) {
+        return switch (size) {
+            case SMALL -> 5.50;
+            case MEDIUM -> 7.0;
+            case LARGE -> 8.50;
+        };
     }
 
     @Override

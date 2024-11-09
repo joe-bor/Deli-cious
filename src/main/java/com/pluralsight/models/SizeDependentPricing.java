@@ -1,6 +1,8 @@
 package com.pluralsight.models;
 
+import com.pluralsight.models.enums.Size;
+
 @FunctionalInterface
 public interface SizeDependentPricing {
-    double getPriceBasedOn(String size);
+    double getPriceBasedOnSize(Size size);
 }

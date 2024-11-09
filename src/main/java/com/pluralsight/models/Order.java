@@ -54,7 +54,7 @@ public class Order {
 
     public double getDrinkCost() {
         return this.getDrinks().stream()
-                .mapToDouble(Drink::getPriceBasedOnSize)
+                .mapToDouble(drink -> drink.getPriceBasedOnSize(null))
                 .sum();
     }
 
