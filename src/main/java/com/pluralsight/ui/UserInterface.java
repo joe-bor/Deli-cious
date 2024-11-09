@@ -1,8 +1,8 @@
 package com.pluralsight.ui;
 
 import com.pluralsight.models.*;
-import com.pluralsight.models.Sandwich;
 import com.pluralsight.models.enums.BreadType;
+import com.pluralsight.models.enums.Size;
 import com.pluralsight.models.topping.CheeseTopping;
 import com.pluralsight.models.topping.MeatTopping;
 import com.pluralsight.models.topping.RegularTopping;
@@ -149,7 +149,7 @@ public class UserInterface {
 
         // create a sandwich (just bread and size)
         BreadType breadType = selectBread();
-        String sandwichSize = selectSandwichSize();
+        Size sandwichSize = selectSandwichSize();
         currentSandwich = new Sandwich(breadType, sandwichSize);
 
         // add toppings to the sandwich
@@ -178,14 +178,23 @@ public class UserInterface {
         return toasted.equalsIgnoreCase("y");
     }
 
-    private String selectSandwichSize() {
+    private Size selectSandwichSize() {
         System.out.println("""
                 Select your sandwich size:
                     - 4
                     - 8
                     - 12
                 """);
-        return SCANNER.nextLine();
+        String size = SCANNER.nextLine();
+        return switch (size) {
+            case "4" -> Size.SMALL;
+            case "8" -> Size.MEDIUM;
+            case "12" -> Size.LARGE;
+            case null, default -> {
+                System.out.println("Invalid Size");
+                yield null;
+            }
+        };
     }
 
     private BreadType selectBread() {

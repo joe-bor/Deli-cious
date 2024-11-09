@@ -36,19 +36,19 @@ public class Order {
         return getSandwichCost() + getDrinkCost() + getChipsCost();
     }
 
-    public double getSandwichCost() {
+    public double getSandwichCost() { // TODO: Rework after changing/applying interface
         double total = 0;
 
-        for (Sandwich sandwich : this.getSandwiches()) {
-            String sandwichSize = sandwich.getSandwichSize();
-            total += Sandwich.SIZE_TO_PRICE.get(sandwichSize);
-
-            for (Topping topping : sandwich.getToppings()) {
-                if (topping instanceof PremiumTopping premiumTopping) {
-                    total += premiumTopping.getPriceBasedOn(sandwichSize);
-                }
-            }
-        }
+//        for (Sandwich sandwich : this.getSandwiches()) {
+//            Size sandwichSize = sandwich.getSandwichSize();
+//            total += Sandwich.SIZE_TO_PRICE.get(sandwichSize);
+//
+//            for (Topping topping : sandwich.getToppings()) {
+//                if (topping instanceof PremiumTopping premiumTopping) {
+//                    total += premiumTopping.getPriceBasedOn(sandwichSize);
+//                }
+//            }
+//        }
         return total;
     }
 

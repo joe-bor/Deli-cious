@@ -1,6 +1,7 @@
 package com.pluralsight.models;
 
 import com.pluralsight.models.enums.BreadType;
+import com.pluralsight.models.enums.Size;
 import com.pluralsight.models.topping.PremiumTopping;
 import com.pluralsight.models.topping.Topping;
 import lombok.AllArgsConstructor;
@@ -22,11 +23,11 @@ public class Sandwich {
     }};
 
     private BreadType breadType;
-    private String sandwichSize;
+    private Size sandwichSize;
     private List<Topping> toppings;
     private boolean toasted;
 
-    public Sandwich(BreadType breadType, String sandwichSize) {
+    public Sandwich(BreadType breadType, Size sandwichSize) {
         this.breadType = breadType;
         this.sandwichSize = sandwichSize;
         this.toppings = new ArrayList<>();
