@@ -1,5 +1,6 @@
 package com.pluralsight.models;
 
+import com.pluralsight.models.enums.BreadType;
 import com.pluralsight.models.topping.PremiumTopping;
 import com.pluralsight.models.topping.Topping;
 import lombok.AllArgsConstructor;
@@ -20,12 +21,12 @@ public class Sandwich {
         put("12", 8.50);
     }};
 
-    private String breadType;
+    private BreadType breadType;
     private String sandwichSize;
     private List<Topping> toppings;
     private boolean toasted;
 
-    public Sandwich(String breadType, String sandwichSize) {
+    public Sandwich(BreadType breadType, String sandwichSize) {
         this.breadType = breadType;
         this.sandwichSize = sandwichSize;
         this.toppings = new ArrayList<>();
@@ -47,7 +48,7 @@ public class Sandwich {
         String formattedToppings = toppings.stream()
                 .map(topping -> {
                     if (topping instanceof PremiumTopping premiumTopping && premiumTopping.isExtra()) {
-                        return "extra " + premiumTopping.getName();
+                        return "Extra " + premiumTopping.getName();
                     }
                     return topping.getName();
                 })
