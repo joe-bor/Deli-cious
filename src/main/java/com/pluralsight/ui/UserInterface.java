@@ -240,6 +240,8 @@ public class UserInterface {
         RegularTopping.SIDES.forEach(s -> System.out.println("    - " + s));
 
         String answer = SCANNER.nextLine();
+        if (answer.isBlank()) return sides;
+
         String[] sidesArr = answer.split(Pattern.quote(","));
         for (String side : sidesArr) {
             if (RegularTopping.SIDES.contains(side.trim())) {
@@ -259,6 +261,8 @@ public class UserInterface {
         RegularTopping.SAUCES.forEach(s -> System.out.println("    - " + s));
 
         String answer = SCANNER.nextLine();
+        if (answer.isBlank()) return sauces;
+
         String[] saucesArr = answer.split(Pattern.quote(","));
         for (String sauce : saucesArr) {
             if (RegularTopping.SAUCES.contains(sauce.trim())) {
@@ -271,13 +275,21 @@ public class UserInterface {
         return sauces;
     }
 
-    private List<Topping> selectRegularToppings() {
-        List<Topping> regularToppings = new ArrayList<>();
+    private List<RegularTopping> selectRegularToppings() {
+        List<RegularTopping> regularToppings = new ArrayList<>();
 
-        System.out.println("\nHere are the options for regular toppings: ");
+        System.out.println("\n** Regular Toppings **: ");
+        System.out.println(" Type 'All' for all toppings or keep it 'Blank' if you want none");
         RegularTopping.OPTIONS.forEach(s -> System.out.println("    - " + s));
 
         String answer = SCANNER.nextLine();
+        if (answer.isBlank()) return regularToppings;
+        if (answer.equalsIgnoreCase("all")){
+            return RegularTopping.OPTIONS.stream()
+                    .map(RegularTopping::new)
+                    .toList();
+        }
+
         String[] regularArr = answer.split(Pattern.quote(","));
         for (String regularTopping : regularArr) {
             if (RegularTopping.OPTIONS.contains(regularTopping.trim())) {

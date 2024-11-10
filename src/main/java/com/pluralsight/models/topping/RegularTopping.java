@@ -20,7 +20,7 @@ public class RegularTopping extends Topping {
         addAll(List.of("Au Jus", "Sauce"));
     }};
 
-    public RegularTopping(String name){
+    public RegularTopping(String name) {
         super(name);
     }
 }
