@@ -19,7 +19,7 @@ public class Order {
 
 
     public void addSandwich(Sandwich sandwich) {
-        this.getSandwiches().add(sandwich);
+        this.getSandwiches().addFirst(sandwich);
     }
 
     public void addDrink(Drink drink) {

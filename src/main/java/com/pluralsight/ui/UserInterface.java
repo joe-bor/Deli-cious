@@ -179,37 +179,28 @@ public class UserInterface {
     }
 
     private Size selectSandwichSize() {
-        System.out.println("""
-                Select your sandwich size:
-                    - 4
-                    - 8
-                    - 12
-                """);
-        String size = SCANNER.nextLine();
-        return switch (size) {
-            case "4" -> Size.SMALL;
-            case "8" -> Size.MEDIUM;
-            case "12" -> Size.LARGE;
-            case null, default -> {
-                System.out.println("Invalid Size");
-                yield null;
-            }
-        };
+        System.out.println("\nSelect your sandwich size:");
+        for (Size sizeVal : Size.values()) {
+            System.out.printf(" - %s (%s)\n", sizeVal, sizeVal.getInOfSandwich());
+        }
+        String size = SCANNER.nextLine().trim().toUpperCase();
+        try {
+            return Size.valueOf(size);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid size. Defaulting to 'Small'");
+            return Size.SMALL;
+        }
     }
 
     private BreadType selectBread() {
-        System.out.println("""
-                Select your bread:
-                    - White
-                    - Wheat
-                    - Rye
-                    - Wrap
-                """);
+        System.out.println("Select your bread:");
+        Arrays.stream(BreadType.values()).forEach(breadType -> System.out.printf(" - %s\n", breadType.name()));
+
         try {
             return BreadType.valueOf(SCANNER.nextLine().toUpperCase());
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid bread type");
-            return null;
+            System.out.println("Invalid bread type. Defaulting to 'White'");
+            return BreadType.WHITE;
         }
     }
 
@@ -217,10 +208,10 @@ public class UserInterface {
         List<Topping> toppings = new ArrayList<>();
 
         System.out.println("""
+                
                 Instructions:
                     - Choose your toppings
-                    - You can select multiple values from the options
-                    - Separate them out with commas
+                    - You can select multiple values from the options by separating them with commas.
                     - eg. Ham,Steak,Bacon
                 """);
 
@@ -284,7 +275,7 @@ public class UserInterface {
 
         String answer = SCANNER.nextLine();
         if (answer.isBlank()) return regularToppings;
-        if (answer.equalsIgnoreCase("all")){
+        if (answer.equalsIgnoreCase("all")) {
             return RegularTopping.OPTIONS.stream()
                     .map(RegularTopping::new)
                     .toList();
