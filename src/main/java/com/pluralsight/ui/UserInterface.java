@@ -79,7 +79,10 @@ public class UserInterface {
                 case "1" -> processAddSandwichToOrder();
                 case "2" -> processAddDrinkToOrder();
                 case "3" -> processAddChipToOrder();
-                case "4" -> displayCheckoutScreen();
+                case "4" -> {
+                    displayCheckoutScreen();
+                    isShown = false;
+                }
                 case "0" -> {
                     processCancelOrder();
                     isShown = false;
@@ -112,13 +115,11 @@ public class UserInterface {
 
     private void processCheckout() {
         System.out.println("Confirming Order...");
-        // TODO: Implement
         // Create the receipt
         Receipt receipt = new Receipt(this.order);
         ReceiptFileManager.saveReceipt(this.store, receipt);
-        // go back to home screen
         // set this.order to null
-        this.order = null;
+        this.setOrder(null);
 
         System.out.println("Here's your receipt, thank you!");
 
