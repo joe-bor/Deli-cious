@@ -68,11 +68,13 @@ public class Order {
                 .collect(Collectors.joining(", "));
 
         return String.format("""
-                        ** ORDER **
+                                    *** ORDER ***
                         Customer: %-10s
+                        
                         Sandwich:
                         %-30s
                         Drinks: %-10s
+                        
                         Chips: %-10s
                         -----
                         Total: %.2f

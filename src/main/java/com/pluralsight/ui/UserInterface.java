@@ -79,7 +79,7 @@ public class UserInterface {
                 case "1" -> processAddSandwichToOrder();
                 case "2" -> processAddDrinkToOrder();
                 case "3" -> processAddChipToOrder();
-                case "4" -> System.out.println("Checkout");
+                case "4" -> displayCheckoutScreen();
                 case "0" -> {
                     processCancelOrder();
                     isShown = false;
@@ -88,6 +88,40 @@ public class UserInterface {
                 default -> System.out.println("Invalid Option!");
             }
         } while (isShown);
+    }
+
+    private void displayCheckoutScreen() {
+        // Display current order and show options
+        System.out.printf("""
+                
+                %s
+                
+                ------ Checkout Screen ------
+                [1] - Confirm Order
+                [2] - Cancel Order
+                
+                """, this.order);
+
+        String answer = SCANNER.nextLine().trim();
+        switch (answer) {
+            case "1" -> processCheckout();
+            case "2" -> processCancelOrder();
+            default -> System.out.println("Invalid option");
+        }
+    }
+
+    private void processCheckout() {
+        System.out.println("Confirming Order...");
+        // TODO: Implement
+        // Create the receipt
+        Receipt receipt = new Receipt(this.order);
+        ReceiptFileManager.saveReceipt(this.store, receipt);
+        // go back to home screen
+        // set this.order to null
+        this.order = null;
+
+        System.out.println("Here's your receipt, thank you!");
+
     }
 
     private void processAddChipToOrder() {
@@ -103,21 +137,18 @@ public class UserInterface {
         System.out.print("What flavor of drink do you want? ");
         String drinkFlavor = SCANNER.nextLine();
         System.out.print("What size? (Small/Medium/Large) ");
-        String drinkSize = SCANNER.nextLine();
+        String drinkSize = SCANNER.nextLine().trim().toUpperCase();
 
-        Drink newDrink = switch (drinkSize) {
-            case "Small" -> new Drink(drinkFlavor, Size.SMALL);
-            case "Medium" -> new Drink(drinkFlavor, Size.MEDIUM);
-            case "Large" -> new Drink(drinkFlavor, Size.LARGE);
-            default -> {
-                System.out.println("Invalid option! Pick between Small/Medium/Large");
-                yield null;
-            }
-        };
-        if (newDrink != null) {
-            System.out.printf("Added a %s drink to the order\n", newDrink);
-            this.getOrder().addDrink(newDrink);
+        Drink newDrink;
+        try {
+            newDrink = new Drink(drinkFlavor, Size.valueOf(drinkSize));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid drink size. Defaulted to 'SMALL'");
+            newDrink = new Drink(drinkFlavor, Size.SMALL);
         }
+
+        System.out.printf("Added a %s drink to the order\n", newDrink);
+        this.getOrder().addDrink(newDrink);
     }
 
     private void processCancelOrder() {
@@ -160,16 +191,14 @@ public class UserInterface {
         boolean toasted = selectToasted();
         currentSandwich.setToasted(toasted);
 
-        if (currentSandwich != null) {
-            // print out to customers the sandwich they just created
-            System.out.println("\nSandwich created!");
-            System.out.println(currentSandwich);
-            // add this sandwich to running order
-            this.order.addSandwich(currentSandwich);
+        // print out to customers the sandwich they just created
+        System.out.println("\nSandwich created!");
+        System.out.println(currentSandwich);
+        // add this sandwich to running order
+        this.order.addSandwich(currentSandwich);
 
-            // show current order
-            System.out.println(this.order);
-        }
+        // show current order
+        System.out.println(this.order);
     }
 
     private boolean selectToasted() {
@@ -341,6 +370,6 @@ public class UserInterface {
     }
 
     private Store initStore() {
-        return new Store("Deli Store", "123 Main St");
+        return new Store("Deli-Store", "123 Main St");
     }
 }
