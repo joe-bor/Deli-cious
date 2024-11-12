@@ -14,8 +14,9 @@ public abstract class SandwichShopList {
     }
 
     public static void printStoreList(){
-        for (SandwichShop store : sandwichShops){
-            System.out.println(store.getName());
+        for (int i = 0; i < sandwichShops.size(); i++) {
+            SandwichShop sandwichShop =  sandwichShops.get(i);
+            System.out.println(String.format("  [%d] - %s", i + 1, sandwichShop.getName()));
         }
     }
 }

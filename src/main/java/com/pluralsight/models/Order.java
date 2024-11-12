@@ -21,6 +21,10 @@ public class Order {
 
     public void addSandwich(Sandwich sandwich) {
         this.getSandwiches().addFirst(sandwich);
+        System.out.printf("""
+                Sandwich added to order:
+                %s
+                """, sandwich);
     }
 
     public void addDrink(Drink drink) {

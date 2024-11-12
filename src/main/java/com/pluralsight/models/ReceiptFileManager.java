@@ -26,13 +26,13 @@ public abstract class ReceiptFileManager {
             bufferedWriter.append(String.format("""
                     ======================== RECEIPT ========================
                                         %s
-                                    %s
+                         %s
                     %s
                     =========================================================
                     
                     %s
                     ======================== End of Receipt ========================
-                    """, store.getName(), store.getAddress(), receipt.transactionDate(), receipt.order()));
+                    """, store.getName(), store.getAddress(), receipt.transactionDate().format(DateTimeFormatter.ofPattern("yyyy-mm-dd @ hh:mm")), receipt.order()));
 
             System.out.println("Receipt Successfully created!");
         } catch (IOException e) {

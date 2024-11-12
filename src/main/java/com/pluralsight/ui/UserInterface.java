@@ -4,7 +4,10 @@ import com.pluralsight.models.*;
 import com.pluralsight.models.enums.BreadType;
 import com.pluralsight.models.enums.Size;
 import com.pluralsight.models.sandwich.Sandwich;
+import com.pluralsight.models.sandwich_shop.LittleLucca;
 import com.pluralsight.models.sandwich_shop.SandwichShop;
+import com.pluralsight.models.sandwich_shop.SandwichShopList;
+import com.pluralsight.models.sandwich_shop.SpecialtyShop;
 import com.pluralsight.models.topping.CheeseTopping;
 import com.pluralsight.models.topping.MeatTopping;
 import com.pluralsight.models.topping.RegularTopping;
@@ -20,14 +23,18 @@ public class UserInterface {
     private SandwichShop store = initStore();
     private Order order;
 
-    public void displayGreeting() {
-        System.out.println(String.format("""
-                ========================================
-                            Welcome to %s
-                            %s
-                ========================================
-                """, this.store.getName(), this.store.getAddress()));
+    public void display() {
+        this.store = pickStore();
+        displayGreeting();
+    }
 
+    private void displayGreeting() {
+        System.out.println(String.format("""
+                =========================================================
+                            Welcome to %s
+                %s
+                =========================================================
+                """, this.store.getName(), this.store.getAddress()));
         displayHomeScreen();
     }
 
@@ -73,6 +80,7 @@ public class UserInterface {
                     [2] - Add Drink
                     [3] - Add Chips
                     [4] - Checkout
+                    [9] - ** Signature Sandwich **
                     [0] - Cancel Order
                     """);
 
@@ -89,10 +97,37 @@ public class UserInterface {
                     processCancelOrder();
                     isShown = false;
                 }
+                case "9" ->
+                        processSignatureSandwich(this.store);  //TODO: make it dynamic, only available to 'special stores'
                 case "test" -> System.out.println(this.order); //TODO: REMOVE
                 default -> System.out.println("Invalid Option!");
             }
         } while (isShown);
+    }
+
+    private void processSignatureSandwich(SandwichShop sandwichShop) {
+        // display sig sandwich
+        if (!(sandwichShop instanceof SpecialtyShop specialtyShop)) {
+            System.out.printf("%s does not have a signature sandwich\n", sandwichShop.getName());
+        } else {
+            System.out.println(specialtyShop.getSignatureSandwich());
+
+            // query if they want to customize
+            // (yes) iterate over toppings? || ask for another input
+            // (no) add to cart
+            System.out.println("""
+                    What would you like to do
+                    [1] - Add sandwich to current order
+                    [2] - Customize sandwich
+                    """);
+
+            String answer = SCANNER.nextLine();
+            switch (answer) {
+                case "1" -> this.order.addSandwich(specialtyShop.getSignatureSandwich());
+                case "2" -> System.out.println("CUSTOMIZE SIG SANDWICH SCREEN");
+                default -> System.out.println("Invalid Option!");
+            }
+        }
     }
 
     private void displayCheckoutScreen() {
@@ -376,9 +411,16 @@ public class UserInterface {
         return new SandwichShop("Deli-Store", "123 Main St");
     }
 
-    private void pickStore(){
+    private SandwichShop pickStore() {
         System.out.println("Where do you want to get a sandwich?");
         // list Stores
+        SandwichShopList.printStoreList();
+
+        String answer = SCANNER.nextLine();
+        return switch (answer) {
+            case "1" -> LittleLucca.getInstance();
+            default -> new SandwichShop("Default-Deli-Store", "123 Main St");
+        };
         // capture input
         // return chosen store
     }

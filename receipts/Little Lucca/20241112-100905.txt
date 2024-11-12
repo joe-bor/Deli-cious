@@ -1,0 +1,30 @@
+======================== RECEIPT ========================
+                    Little Lucca
+                724 El Camino Real, South San Francisco, CA 94080
+2024-11-12T10:09:05.694344
+=========================================================
+
+            *** ORDER ***
+Customer: null      
+
+Sandwich:
+---------------------------------------------------------------------
+| Bread: WRAP       | Size: LARGE      | Toasted: Yes       
+---------------------------------------------------------------------
+| Toppings: Extra Salami, Extra American, Lettuce, Onions, Mushrooms, Guacamole, Jalapenos, Peppers, Tomatoes, Cucumbers, Pickles
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+| Bread: WHITE      | Size: LARGE      | Toasted: No        
+---------------------------------------------------------------------
+| Toppings: Extra Mortadella, Extra Salami, Mayo, Mustard, Pickles, Red Onions, Lettuce, Tomato, Hot Pepper Sauce, Original Garlic Sauce
+---------------------------------------------------------------------
+
+Drinks:           
+
+Chips:           
+-----
+Total: 33.65
+
+
+======================== End of Receipt ========================

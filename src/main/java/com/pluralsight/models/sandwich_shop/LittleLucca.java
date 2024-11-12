@@ -10,7 +10,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class LittleLucca extends SandwichShop {
+public class LittleLucca extends SandwichShop implements SpecialtyShop {
 
     public static LittleLucca instance;
     private Sandwich signatureSandwich;
