@@ -3,9 +3,7 @@ package com.pluralsight.models.sandwich;
 import com.pluralsight.models.SizeDependentPricing;
 import com.pluralsight.models.enums.BreadType;
 import com.pluralsight.models.enums.Size;
-import com.pluralsight.models.topping.PremiumTopping;
-import com.pluralsight.models.topping.SignatureTopping;
-import com.pluralsight.models.topping.Topping;
+import com.pluralsight.models.topping.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -61,7 +59,7 @@ public class Sandwich implements SizeDependentPricing {
         return getBreadCost() + getToppingsCost();
     }
 
-    public List<Topping> getSignatureToppings(){
+    public List<Topping> getSignatureToppings() {
         return this.getToppings().stream()
                 .filter(SignatureTopping.class::isInstance)
                 .toList();
@@ -78,21 +76,41 @@ public class Sandwich implements SizeDependentPricing {
 
     @Override
     public String toString() {
-        String formattedToppings = toppings.stream()
+        String meatToppings = toppings.stream()
+                .filter(topping -> topping instanceof MeatTopping)
                 .map(topping -> {
-                    if (topping instanceof PremiumTopping premiumTopping && premiumTopping.isExtra()) {
-                        return "Extra " + premiumTopping.getName();
-                    }
-                    return topping.getName();
+                    MeatTopping meat = (MeatTopping) topping;
+                    return meat.isExtra() ? "Extra " + meat.getName() : meat.getName();
                 })
+                .collect(Collectors.joining(", "));
+
+        String cheeseToppings = toppings.stream()
+                .filter(topping -> topping instanceof CheeseTopping)
+                .map(topping -> {
+                    CheeseTopping cheese = (CheeseTopping) topping;
+                    return cheese.isExtra() ? "Extra " + cheese.getName() : cheese.getName();
+                })
+                .collect(Collectors.joining(", "));
+
+        String otherToppings = toppings.stream()
+                .filter(topping -> topping instanceof RegularTopping)
+                .map(Topping::getName)
+                .collect(Collectors.joining(", "));
+
+        String specialToppings = toppings.stream()
+                .filter(topping -> topping instanceof SignatureTopping)
+                .map(Topping::getName)
                 .collect(Collectors.joining(", "));
 
         return String.format("""
                 ---------------------------------------------------------------------
-                | Bread: %-10s | Size: %-10s | Toasted: %-10s
+                | Bread: %-15s | Size: %-15s | Toasted: %-15s
                 ---------------------------------------------------------------------
-                | Toppings: %-50s
+                | Meat: %-40s
+                | Cheese: %-40s
+                | Others: %-40s
+                | Unique: %-40s
                 ---------------------------------------------------------------------
-                """, breadType, sandwichSize, toasted ? "Yes" : "No", formattedToppings);
+                """, breadType, sandwichSize, toasted ? "Yes" : "No", meatToppings, cheeseToppings, otherToppings, specialToppings);
     }
 }
