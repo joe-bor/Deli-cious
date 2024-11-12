@@ -1,20 +1,20 @@
-package com.pluralsight.models.store;
+package com.pluralsight.models.sandwich_shop;
 
 import java.util.List;
 
-public abstract class StoreList {
-    private static List<Store> storeList = List.of(
+public abstract class SandwichShopList {
+    private static List<SandwichShop> sandwichShops = List.of(
             LittleLucca.getInstance()
     );
 
     public static void main(String[] args) {
         printStoreList();
-        System.out.println(storeList.getFirst().getName());
+        System.out.println(sandwichShops.getFirst().getName());
         System.out.println("sig = " + LittleLucca.getInstance().getSignatureSandwich());
     }
 
     public static void printStoreList(){
-        for (Store store : storeList){
+        for (SandwichShop store : sandwichShops){
             System.out.println(store.getName());
         }
     }

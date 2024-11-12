@@ -1,6 +1,6 @@
 package com.pluralsight.models;
 
-import com.pluralsight.models.store.Store;
+import com.pluralsight.models.sandwich_shop.SandwichShop;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,7 +12,7 @@ public abstract class ReceiptFileManager {
 
     private static final String RECEIPT_PATH = "receipts/";
 
-    public static void saveReceipt(Store store, Receipt receipt) {
+    public static void saveReceipt(SandwichShop store, Receipt receipt) {
         File directory = new File(RECEIPT_PATH + store.getName());
         if (!directory.exists()) {
             directory.mkdirs();

@@ -4,7 +4,7 @@ import com.pluralsight.models.*;
 import com.pluralsight.models.enums.BreadType;
 import com.pluralsight.models.enums.Size;
 import com.pluralsight.models.sandwich.Sandwich;
-import com.pluralsight.models.store.Store;
+import com.pluralsight.models.sandwich_shop.SandwichShop;
 import com.pluralsight.models.topping.CheeseTopping;
 import com.pluralsight.models.topping.MeatTopping;
 import com.pluralsight.models.topping.RegularTopping;
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 @Data
 public class UserInterface {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private Store store = initStore();
+    private SandwichShop store = initStore();
     private Order order;
 
     public void displayGreeting() {
@@ -372,8 +372,8 @@ public class UserInterface {
         return cheeseToppings;
     }
 
-    private Store initStore() {
-        return new Store("Deli-Store", "123 Main St");
+    private SandwichShop initStore() {
+        return new SandwichShop("Deli-Store", "123 Main St");
     }
 
     private void pickStore(){

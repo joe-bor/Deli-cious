@@ -1,4 +1,4 @@
-package com.pluralsight.models.store;
+package com.pluralsight.models.sandwich_shop;
 
 import com.pluralsight.models.sandwich.Sandwich;
 import com.pluralsight.models.enums.BreadType;
@@ -10,7 +10,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class LittleLucca extends Store {
+public class LittleLucca extends SandwichShop {
 
     public static LittleLucca instance;
     private Sandwich signatureSandwich;
