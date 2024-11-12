@@ -4,6 +4,7 @@ import com.pluralsight.models.SizeDependentPricing;
 import com.pluralsight.models.enums.BreadType;
 import com.pluralsight.models.enums.Size;
 import com.pluralsight.models.topping.PremiumTopping;
+import com.pluralsight.models.topping.SignatureTopping;
 import com.pluralsight.models.topping.Topping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -58,6 +59,12 @@ public class Sandwich implements SizeDependentPricing {
 
     public double getTotalCost() {
         return getBreadCost() + getToppingsCost();
+    }
+
+    public List<Topping> getSignatureToppings(){
+        return this.getToppings().stream()
+                .filter(SignatureTopping.class::isInstance)
+                .toList();
     }
 
     @Override

@@ -8,14 +8,12 @@ import com.pluralsight.models.sandwich_shop.LittleLucca;
 import com.pluralsight.models.sandwich_shop.SandwichShop;
 import com.pluralsight.models.sandwich_shop.SandwichShopList;
 import com.pluralsight.models.sandwich_shop.SpecialtyShop;
-import com.pluralsight.models.topping.CheeseTopping;
-import com.pluralsight.models.topping.MeatTopping;
-import com.pluralsight.models.topping.RegularTopping;
-import com.pluralsight.models.topping.Topping;
+import com.pluralsight.models.topping.*;
 import lombok.Data;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Data
 public class UserInterface {
@@ -97,8 +95,7 @@ public class UserInterface {
                     processCancelOrder();
                     isShown = false;
                 }
-                case "9" ->
-                        processSignatureSandwich(this.store);  //TODO: make it dynamic, only available to 'special stores'
+                case "9" -> processSignatureSandwich(this.store);
                 case "test" -> System.out.println(this.order); //TODO: REMOVE
                 default -> System.out.println("Invalid Option!");
             }
@@ -117,18 +114,65 @@ public class UserInterface {
             // (no) add to cart
             System.out.println("""
                     What would you like to do
-                    [1] - Add sandwich to current order
-                    [2] - Customize sandwich
+                    [1] - Add signature sandwich to current order
+                    [2] - Customize signature sandwich
                     """);
 
             String answer = SCANNER.nextLine();
             switch (answer) {
                 case "1" -> this.order.addSandwich(specialtyShop.getSignatureSandwich());
-                case "2" -> System.out.println("CUSTOMIZE SIG SANDWICH SCREEN");
+                case "2" -> customizeSignatureSandwich(specialtyShop.getSignatureSandwich());
                 default -> System.out.println("Invalid Option!");
             }
         }
     }
+
+    private void customizeSignatureSandwich(Sandwich sandwich) {
+        boolean isCustomizing;
+
+        do {
+            isCustomizing = true;
+            // show current state of sig sandwich
+            System.out.println(sandwich);
+            System.out.println("The following are unique to this sandwich and can't be modified: ");
+            System.out.println(sandwich.getSignatureToppings().stream()
+                    .map(Topping::getName)
+                    .collect(Collectors.joining(", ")));
+
+            System.out.println("""
+                    
+                    What would you like to customize?
+                    [1] - Bread Type
+                    [2] - Size
+                    [3] - Toasted
+                    [4] - Toppings
+                    [5] - Done customizing
+                    """);
+            String answer = SCANNER.nextLine();
+
+            switch (answer) {
+                case "1" -> sandwich.setBreadType(selectBread());
+                case "2" -> sandwich.setSandwichSize(selectSandwichSize());
+                case "3" -> sandwich.setToasted(selectToasted());
+                case "4" -> customizeSignatureToppings(sandwich);
+                case "5" -> {
+                    this.order.addSandwich(sandwich);
+                    isCustomizing = false;
+                }
+                default -> System.out.println("Invalid option!");
+            }
+        } while (isCustomizing);
+    }
+
+    private void customizeSignatureToppings(Sandwich signatureSandwich) {
+        // extract signature toppings
+        List<Topping> signatureToppings = signatureSandwich.getSignatureToppings();
+        // do toppings selection (regular way)
+        signatureSandwich.setToppings(selectToppings());
+        // re-add signature toppings extracted from first line
+        signatureSandwich.addToppings(signatureToppings);
+    }
+
 
     private void displayCheckoutScreen() {
         // Display current order and show options
