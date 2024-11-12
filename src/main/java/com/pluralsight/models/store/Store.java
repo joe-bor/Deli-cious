@@ -1,5 +1,6 @@
-package com.pluralsight.models;
+package com.pluralsight.models.store;
 
+import com.pluralsight.models.Receipt;
 import lombok.Data;
 
 import java.util.ArrayList;

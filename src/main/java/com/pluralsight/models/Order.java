@@ -1,5 +1,6 @@
 package com.pluralsight.models;
 
+import com.pluralsight.models.sandwich.Sandwich;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

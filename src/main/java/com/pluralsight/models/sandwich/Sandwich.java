@@ -1,5 +1,6 @@
-package com.pluralsight.models;
+package com.pluralsight.models.sandwich;
 
+import com.pluralsight.models.SizeDependentPricing;
 import com.pluralsight.models.enums.BreadType;
 import com.pluralsight.models.enums.Size;
 import com.pluralsight.models.topping.PremiumTopping;
@@ -31,7 +32,7 @@ public class Sandwich implements SizeDependentPricing {
         this.getToppings().add(topping);
     }
 
-    public void addToppings(List<Topping> toppings) {
+    public <T extends Topping> void addToppings(List<T> toppings) {
         for (Topping topping : toppings) {
             this.addTopping(topping);
         }

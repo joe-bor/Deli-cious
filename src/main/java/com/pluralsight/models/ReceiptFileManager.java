@@ -1,5 +1,7 @@
 package com.pluralsight.models;
 
+import com.pluralsight.models.store.Store;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

@@ -3,6 +3,8 @@ package com.pluralsight.ui;
 import com.pluralsight.models.*;
 import com.pluralsight.models.enums.BreadType;
 import com.pluralsight.models.enums.Size;
+import com.pluralsight.models.sandwich.Sandwich;
+import com.pluralsight.models.store.Store;
 import com.pluralsight.models.topping.CheeseTopping;
 import com.pluralsight.models.topping.MeatTopping;
 import com.pluralsight.models.topping.RegularTopping;
@@ -18,7 +20,7 @@ public class UserInterface {
     private Store store = initStore();
     private Order order;
 
-    public void display() {
+    public void displayGreeting() {
         System.out.println(String.format("""
                 ========================================
                             Welcome to %s
@@ -372,5 +374,12 @@ public class UserInterface {
 
     private Store initStore() {
         return new Store("Deli-Store", "123 Main St");
+    }
+
+    private void pickStore(){
+        System.out.println("Where do you want to get a sandwich?");
+        // list Stores
+        // capture input
+        // return chosen store
     }
 }
