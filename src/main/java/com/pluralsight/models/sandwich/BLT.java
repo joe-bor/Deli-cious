@@ -27,7 +27,7 @@ public class BLT extends Sandwich {
     }
 
 
-    public BLT(BreadType breadType, Size sandwichSize, List<Topping> toppings, boolean toasted) {
+    private BLT(BreadType breadType, Size sandwichSize, List<Topping> toppings, boolean toasted) {
         super(breadType, sandwichSize, toppings, toasted);
     }
 
