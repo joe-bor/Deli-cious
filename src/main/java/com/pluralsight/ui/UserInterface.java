@@ -24,12 +24,12 @@ public class UserInterface {
     }
 
     private void displayGreeting() {
-        System.out.println(String.format("""
+        System.out.printf("""
                 =========================================================
                             Welcome to %s
                 %s
                 =========================================================
-                """, this.store.getName(), this.store.getAddress()));
+                """, this.store.getName(), this.store.getAddress());
         displayHomeScreen();
     }
 
@@ -42,6 +42,7 @@ public class UserInterface {
                     
                     ------  Home Screen ------
                     [1] - New Order
+                    [2] - Switch Shops
                     [0] - Exit
                     
                     """);
@@ -49,6 +50,7 @@ public class UserInterface {
             String option = SCANNER.nextLine();
             switch (option) {
                 case "1" -> processNewOrder();
+                case "2" -> this.setStore(pickStore());
                 case "0" -> {
                     System.out.println("Exit");
                     isShown = false;
@@ -68,7 +70,7 @@ public class UserInterface {
 
         do {
             isShown = true;
-            System.out.println(String.format("""
+            System.out.printf("""
                     
                     ------ Order Screen ------
                     %s
@@ -81,7 +83,7 @@ public class UserInterface {
                 case SpecialtyShop ignored -> "[S] - ** Signature Sandwich **";
                 case BonusShop ignored -> "[S] - Template Sandwiches";
                 default -> "";
-            }));
+            });
 
             String option = SCANNER.nextLine();
             switch (option) {
