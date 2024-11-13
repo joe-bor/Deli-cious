@@ -7,4 +7,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class Customer {
     private String name;
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

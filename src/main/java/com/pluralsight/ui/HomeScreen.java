@@ -16,14 +16,15 @@ public class HomeScreen {
             displayGreeting(userInterface.getSandwichShop());
 
             isShown = true;
-            System.out.println("""
+            System.out.printf("""
+                    Welcome %s!
                     
                     ------  Home Screen ------
                     [1] - New Order
                     [2] - Switch Shops
                     [0] - Exit
                     
-                    """);
+                    """, userInterface.getCustomer().getName());
 
             String option = SCANNER.nextLine();
             switch (option) {

@@ -17,14 +17,17 @@ public class UserInterface {
 
     private SandwichShop sandwichShop;
     private Order order;
+    private Customer customer;
 
     public void display() {
+        this.customer = createCustomer();
         this.sandwichShop = pickSandwichShop();
         HOME_SCREEN.displayHomeScreen(this);
     }
 
     void processNewOrder() {
         this.order = new Order();
+        order.setCustomer(this.getCustomer());
         ORDER_SCREEN.displayOrderScreen(this, this.order, this.sandwichShop);
     }
 
@@ -84,5 +87,16 @@ public class UserInterface {
             case "2" -> SandwichShopList.getSandwichShops().get(1); //new BonusShop();
             default -> new SandwichShop("Default-Deli-Store", "123 Main St");
         };
+    }
+
+    private Customer createCustomer() {
+        System.out.println("""
+                
+                ****** DELI CLI APP ******
+                
+                Who is this order for?
+                """);
+        String customerName = SCANNER.nextLine();
+        return new Customer(customerName);
     }
 }
