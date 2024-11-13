@@ -32,7 +32,7 @@ public abstract class ReceiptFileManager {
                     
                     %s
                     ======================== End of Receipt ========================
-                    """, store.getName(), store.getAddress(), receipt.transactionDate().format(DateTimeFormatter.ofPattern("yyyy-mm-dd @ hh:mm")), receipt.order()));
+                    """, store.getName(), store.getAddress(), receipt.transactionDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd @ hh:mm")), receipt.order()));
 
             System.out.println("Receipt Successfully created!");
         } catch (IOException e) {

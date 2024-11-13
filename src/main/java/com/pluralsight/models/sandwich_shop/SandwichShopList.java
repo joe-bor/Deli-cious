@@ -1,17 +1,15 @@
 package com.pluralsight.models.sandwich_shop;
 
+import lombok.Getter;
+
 import java.util.List;
 
 public abstract class SandwichShopList {
-    private static List<SandwichShop> sandwichShops = List.of(
-            LittleLucca.getInstance()
+    @Getter
+    private static final List<SandwichShop> sandwichShops = List.of(
+            LittleLucca.getInstance(),
+            new BonusShop()
     );
-
-    public static void main(String[] args) {
-        printStoreList();
-        System.out.println(sandwichShops.getFirst().getName());
-        System.out.println("sig = " + LittleLucca.getInstance().getSignatureSandwich());
-    }
 
     public static void printStoreList(){
         for (int i = 0; i < sandwichShops.size(); i++) {
