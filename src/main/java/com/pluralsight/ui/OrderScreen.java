@@ -1,9 +1,7 @@
 package com.pluralsight.ui;
 
 import com.pluralsight.models.Order;
-import com.pluralsight.models.sandwich_shop.BonusShop;
 import com.pluralsight.models.sandwich_shop.SandwichShop;
-import com.pluralsight.models.sandwich_shop.SpecialtyShop;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Scanner;

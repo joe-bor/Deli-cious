@@ -1,16 +1,11 @@
 package com.pluralsight.ui;
 
 import com.pluralsight.models.*;
-import com.pluralsight.models.enums.BreadType;
 import com.pluralsight.models.enums.Size;
-import com.pluralsight.models.sandwich.Sandwich;
 import com.pluralsight.models.sandwich_shop.*;
-import com.pluralsight.models.topping.*;
 import lombok.Data;
 
 import java.util.*;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Data
 public class UserInterface {
