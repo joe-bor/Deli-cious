@@ -1,0 +1,19 @@
+======================== RECEIPT ========================
+                    Little Lucca
+  724 El Camino Real, South San Francisco, CA 94080
+                2024-11-13 @ 11:28
+=========================================================
+
+            *** ORDER ***
+Customer: null      
+
+Sandwich:
+                              
+Drinks: SMALL Pepsi
+
+Chips: Lays Wavy 
+-----
+Total: 3.50
+
+
+======================== End of Receipt ========================

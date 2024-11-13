@@ -1,0 +1,27 @@
+======================== RECEIPT ========================
+                    Bonus Challenge
+     Contains 'template sandwiches' that can be customized
+2024-11-13 @ 10:08
+=========================================================
+
+            *** ORDER ***
+Customer: null      
+
+Sandwich:
+---------------------------------------------------------------------
+| Bread: WHITE           | Size: MEDIUM          | Toasted: Yes            
+---------------------------------------------------------------------
+| Meat: Steak                                   
+| Cheese: American Cheese                         
+| Others: Peppers, Mayo                           
+| Unique:                                         
+---------------------------------------------------------------------
+
+Drinks:           
+
+Chips:           
+-----
+Total: 10.50
+
+
+======================== End of Receipt ========================

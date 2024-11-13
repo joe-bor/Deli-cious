@@ -36,7 +36,7 @@ public class LittleLucca extends SandwichShop implements SpecialtyShop {
         super(name, address);
     }
 
-    private Sandwich createSignatureSandwich() {
+    public Sandwich createSignatureSandwich() {
         Sandwich sandwich = new Sandwich(BreadType.WHITE, Size.LARGE) ;
         // add prem toppings
         List<MeatTopping> meatToppingList = List.of(
@@ -58,7 +58,7 @@ public class LittleLucca extends SandwichShop implements SpecialtyShop {
     }
 
 
-    private class Mortadella extends MeatTopping implements SignatureTopping {
+    private static class Mortadella extends MeatTopping implements SignatureTopping {
         private Mortadella(String name, boolean extra) {
             super(name, extra);
         }
@@ -68,7 +68,7 @@ public class LittleLucca extends SandwichShop implements SpecialtyShop {
         }
     }
 
-    private class HotPepperSauce extends RegularTopping implements SignatureTopping {
+    private static class HotPepperSauce extends RegularTopping implements SignatureTopping {
         private HotPepperSauce(String name) {
             super(name);
         }
@@ -78,7 +78,7 @@ public class LittleLucca extends SandwichShop implements SpecialtyShop {
         }
     }
 
-    private class OGGarlicSauce extends RegularTopping implements SignatureTopping {
+    private static class OGGarlicSauce extends RegularTopping implements SignatureTopping {
         private OGGarlicSauce(String name) {
             super(name);
         }
