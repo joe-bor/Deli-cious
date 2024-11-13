@@ -1,0 +1,27 @@
+======================== RECEIPT ========================
+                    Little Lucca
+     724 El Camino Real, South San Francisco, CA 94080
+2024-11-13 @ 10:09
+=========================================================
+
+            *** ORDER ***
+Customer: null      
+
+Sandwich:
+---------------------------------------------------------------------
+| Bread: WHITE           | Size: LARGE           | Toasted: No             
+---------------------------------------------------------------------
+| Meat: Extra Mortadella, Extra Salami          
+| Cheese:                                         
+| Others: OG Garlic Sauce, Hot Pepper Sauce, Mayo, Mustard, Pickles, Red Onions, Lettuce, Tomato
+| Unique: Mortadella, OG Garlic Sauce, Hot Pepper Sauce
+---------------------------------------------------------------------
+
+Drinks: LARGE Coke Diet
+
+Chips:           
+-----
+Total: 20.50
+
+
+======================== End of Receipt ========================

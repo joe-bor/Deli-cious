@@ -17,4 +17,8 @@ public class SandwichShop {
         this.address = address;
         this.transactions = new ArrayList<>();
     }
+
+    public void addReceipt(Receipt receipt){
+        this.getTransactions().add(receipt);
+    }
 }

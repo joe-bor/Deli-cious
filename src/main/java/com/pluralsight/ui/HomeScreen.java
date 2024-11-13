@@ -30,7 +30,7 @@ public class HomeScreen {
                 case "1" -> userInterface.processNewOrder();
                 case "2" -> userInterface.processSwitchShops();
                 case "0" -> {
-                    System.out.println("Exit");
+                    System.out.println("Terminating the app...");
                     isShown = false;
                 }
                 default -> System.out.println("Invalid Option!");

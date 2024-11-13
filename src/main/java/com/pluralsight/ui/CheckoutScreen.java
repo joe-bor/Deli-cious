@@ -33,8 +33,8 @@ public class CheckoutScreen {
 
     private void confirmOrder(Order order, SandwichShop sandwichShop) {
         System.out.println("Confirming Order...");
-        // TODO: Add receipt to store?
         Receipt receipt = new Receipt(order);
+        sandwichShop.addReceipt(receipt);
         ReceiptFileManager.saveReceipt(sandwichShop, receipt);
         order = null;
         System.out.println("Here's your receipt, thank you!");

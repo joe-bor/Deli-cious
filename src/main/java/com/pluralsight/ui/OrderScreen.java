@@ -17,20 +17,15 @@ public class OrderScreen {
 
         do {
             isShown = true;
-            System.out.printf("""
+            System.out.println("""
                     
                     ------ Order Screen ------
-                    %s
                     [1] - Add Sandwich
                     [2] - Add Drink
                     [3] - Add Chips
                     [4] - Checkout
                     [0] - Cancel Order
-                    """, switch (sandwichShop) {
-                case SpecialtyShop ignored -> "[S] - ** Signature Sandwich **";
-                case BonusShop ignored -> "[S] - Template Sandwiches";
-                default -> "";
-            });
+                    """);
 
             String option = SCANNER.nextLine();
             switch (option) {
@@ -45,7 +40,6 @@ public class OrderScreen {
                     userInterface.processCancelOrder();
                     isShown = false;
                 }
-                case "S" -> userInterface.processSignatureSandwich(sandwichShop);
                 case "test" -> System.out.println(order);
                 default -> System.out.println("Invalid Option!");
             }
