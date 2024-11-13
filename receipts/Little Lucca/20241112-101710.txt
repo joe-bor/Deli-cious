@@ -1,0 +1,19 @@
+======================== RECEIPT ========================
+                    Little Lucca
+     724 El Camino Real, South San Francisco, CA 94080
+2024-17-12 @ 10:17
+=========================================================
+
+            *** ORDER ***
+Customer: null      
+
+Sandwich:
+                              
+Drinks:           
+
+Chips: Cheetos   
+-----
+Total: 1.50
+
+
+======================== End of Receipt ========================
