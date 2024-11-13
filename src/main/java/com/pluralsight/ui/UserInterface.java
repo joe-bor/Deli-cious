@@ -15,97 +15,86 @@ import java.util.stream.Collectors;
 @Data
 public class UserInterface {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private SandwichShop store = initStore();
+    private final HomeScreen HOME_SCREEN = new HomeScreen(SCANNER);
+    private final OrderScreen ORDER_SCREEN = new OrderScreen(SCANNER);
+    private final CheckoutScreen CHECKOUT_SCREEN = new CheckoutScreen(SCANNER);
+
+    private SandwichShop sandwichShop;
     private Order order;
 
     public void display() {
-        this.store = pickStore();
-        displayGreeting();
+        this.sandwichShop = pickSandwichShop();
+        HOME_SCREEN.displayHomeScreen(this);
     }
 
-    private void displayGreeting() {
-        System.out.printf("""
-                =========================================================
-                            Welcome to %s
-                %s
-                =========================================================
-                """, this.store.getName(), this.store.getAddress());
-        displayHomeScreen();
-    }
-
-    public void displayHomeScreen() {
-        boolean isShown;
-
-        do {
-            isShown = true;
-            System.out.println("""
-                    
-                    ------  Home Screen ------
-                    [1] - New Order
-                    [2] - Switch Shops
-                    [0] - Exit
-                    
-                    """);
-
-            String option = SCANNER.nextLine();
-            switch (option) {
-                case "1" -> processNewOrder();
-                case "2" -> this.setStore(pickStore());
-                case "0" -> {
-                    System.out.println("Exit");
-                    isShown = false;
-                }
-                default -> System.out.println("Invalid Option!");
-            }
-        } while (isShown);
-    }
-
-    private void processNewOrder() {
+    void processNewOrder() {
         this.order = new Order();
-        displayOrderScreen();
+        ORDER_SCREEN.displayOrderScreen(this, this.order, this.sandwichShop);
     }
 
-    private void displayOrderScreen() {
+    void processSwitchShops() {
+        this.sandwichShop = pickSandwichShop();
+    }
+
+    void processAddSandwichToOrder() {
         boolean isShown;
 
         do {
             isShown = true;
-            System.out.printf("""
-                    
-                    ------ Order Screen ------
-                    %s
-                    [1] - Add Sandwich
-                    [2] - Add Drink
-                    [3] - Add Chips
-                    [4] - Checkout
-                    [0] - Cancel Order
-                    """, switch (this.store) {
-                case SpecialtyShop ignored -> "[S] - ** Signature Sandwich **";
-                case BonusShop ignored -> "[S] - Template Sandwiches";
-                default -> "";
-            });
+            createSandwichScreen();
 
-            String option = SCANNER.nextLine();
-            switch (option) {
-                case "1" -> processAddSandwichToOrder();
-                case "2" -> processAddDrinkToOrder();
-                case "3" -> processAddChipToOrder();
-                case "4" -> {
-                    displayCheckoutScreen();
-                    isShown = false;
-                }
-                case "0" -> {
-                    processCancelOrder();
-                    isShown = false;
-                }
-                case "S" -> processSignatureSandwich(this.store);
-                case "test" -> System.out.println(this.order); //TODO: REMOVE
-                default -> System.out.println("Invalid Option!");
+            // prompt to make another sandwich?
+            System.out.println("Would you like to add more sandwich? (y/n)");
+            String answer = SCANNER.nextLine();
+
+            if (answer.equalsIgnoreCase("n")) {
+                isShown = false;
             }
         } while (isShown);
     }
 
-    private void processSignatureSandwich(SandwichShop sandwichShop) {
+    void processAddDrinkToOrder() {
+        System.out.print("What flavor of drink do you want? ");
+        String drinkFlavor = SCANNER.nextLine();
+        System.out.print("What size? (Small/Medium/Large) ");
+        String drinkSize = SCANNER.nextLine().trim().toUpperCase();
+
+        Drink newDrink;
+        try {
+            newDrink = new Drink(drinkFlavor, Size.valueOf(drinkSize));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid drink size. Defaulted to 'SMALL'");
+            newDrink = new Drink(drinkFlavor, Size.SMALL);
+        }
+
+        System.out.printf("Added a %s drink to the order\n", newDrink);
+        this.getOrder().addDrink(newDrink);
+    }
+
+    void processAddChipToOrder() {
+        System.out.print("What kind of chips would you like? ");
+        String chipsName = SCANNER.nextLine();
+
+        Chip newChip = new Chip(chipsName);
+        this.order.addChip(newChip);
+        System.out.printf("Added %s (chips) to the order\n", newChip);
+    }
+
+    void processCheckout() {
+        CHECKOUT_SCREEN.displayCheckoutScreen(this.order, this.sandwichShop);
+    }
+
+    void processCancelOrder() {
+        System.out.println("Cancelling order...");
+        System.out.println("Going back to home screen...");
+        this.setOrder(null);
+    }
+
+
+    // ------------------ DONE ----------------------
+
+
+     void processSignatureSandwich(SandwichShop sandwichShop) {
         Sandwich selectedSandwich = switch (sandwichShop) {
             case SpecialtyShop specialtyShop -> specialtyShop.getSignatureSandwich();
             case BonusShop bonusShop -> {
@@ -205,87 +194,11 @@ public class UserInterface {
     }
 
 
-    private void displayCheckoutScreen() {
-        // Display current order and show options
-        System.out.printf("""
-                
-                %s
-                
-                ------ Checkout Screen ------
-                [1] - Confirm Order
-                [2] - Cancel Order
-                
-                """, this.order);
 
-        String answer = SCANNER.nextLine().trim();
-        switch (answer) {
-            case "1" -> processCheckout();
-            case "2" -> processCancelOrder();
-            default -> System.out.println("Invalid option");
-        }
-    }
 
-    private void processCheckout() {
-        System.out.println("Confirming Order...");
-        // Create the receipt
-        Receipt receipt = new Receipt(this.order);
-        ReceiptFileManager.saveReceipt(this.store, receipt);
-        // set this.order to null
-        this.setOrder(null);
 
-        System.out.println("Here's your receipt, thank you!");
 
-    }
 
-    private void processAddChipToOrder() {
-        System.out.print("What kind of chips would you like? ");
-        String chipsName = SCANNER.nextLine();
-
-        Chip newChip = new Chip(chipsName);
-        this.order.addChip(newChip);
-        System.out.printf("Added %s (chips) to the order\n", newChip);
-    }
-
-    private void processAddDrinkToOrder() {
-        System.out.print("What flavor of drink do you want? ");
-        String drinkFlavor = SCANNER.nextLine();
-        System.out.print("What size? (Small/Medium/Large) ");
-        String drinkSize = SCANNER.nextLine().trim().toUpperCase();
-
-        Drink newDrink;
-        try {
-            newDrink = new Drink(drinkFlavor, Size.valueOf(drinkSize));
-        } catch (IllegalArgumentException e) {
-            System.out.println("Invalid drink size. Defaulted to 'SMALL'");
-            newDrink = new Drink(drinkFlavor, Size.SMALL);
-        }
-
-        System.out.printf("Added a %s drink to the order\n", newDrink);
-        this.getOrder().addDrink(newDrink);
-    }
-
-    private void processCancelOrder() {
-        System.out.println("Cancelling order...");
-        System.out.println("Going back to home screen...");
-        this.setOrder(null);
-    }
-
-    private void processAddSandwichToOrder() {
-        boolean isShown;
-
-        do {
-            isShown = true;
-            createSandwichScreen();
-
-            // prompt to make another sandwich?
-            System.out.println("Would you like to add more sandwich? (y/n)");
-            String answer = SCANNER.nextLine();
-
-            if (answer.equalsIgnoreCase("n")) {
-                isShown = false;
-            }
-        } while (isShown);
-    }
 
     private void createSandwichScreen() {
         System.out.println("------- Sandwich Creation Screen ------");
@@ -482,11 +395,8 @@ public class UserInterface {
         return cheeseToppings;
     }
 
-    private SandwichShop initStore() {
-        return new SandwichShop("Deli-Store", "123 Main St");
-    }
 
-    private SandwichShop pickStore() {
+    private SandwichShop pickSandwichShop() {
         System.out.println("Where do you want to get a sandwich?");
         // list Stores
         SandwichShopList.printStoreList();
