@@ -26,8 +26,8 @@ public abstract class ReceiptFileManager {
             bufferedWriter.append(String.format("""
                     ======================== RECEIPT ========================
                                         %s
-                         %s
-                    %s
+                      %s
+                                    %s
                     =========================================================
                     
                     %s
