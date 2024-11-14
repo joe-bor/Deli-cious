@@ -27,8 +27,6 @@ orders (mostly sandwiches), and confirm orders. Think doordash, but much less co
 
 ---
 
----
-
 ## How It Works
 
 ![overview](README-Images/flow_overview.png)
@@ -65,3 +63,32 @@ orders (mostly sandwiches), and confirm orders. Think doordash, but much less co
 ***First Draft of UML***
 
 ![First Draft of UML](README-Images/UML-firsDraft.png)
+
+***Finalized UML***
+
+![Finalized UML](README-Images/UML-final.png)
+[Link to UML](https://drive.google.com/file/d/1HKI0WsdOMcw6uM0pAs3mOIvtg8xVqoIr/view?usp=drive_link)
+
+***User-facing Classes (top-right of final UML)***
+![User Interface](README-Images/UML-userInterface.png)
+
+***Main Interaction (bottom-half of final UML)***
+![Main logic](README-Images/UML-main.png)
+
+
+---
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Caveat&weight=500&size=36&letterSpacing=1.2px&pause=1000&color=b4a1ff&background=326EFF00&center=true&vCenter=true&repeat=false&width=435&lines=My+Favorite+Code+Snippet)](https://git.io/typing-svg)
+
+```java
+// inside SandwichCreationScreen.java
+
+private void processSignatureSandwich(Order order, SandwichShop sandwichShop) {
+   Sandwich selectedSandwich = switch (sandwichShop) {
+      case SpecialtyShop specialtyShop -> specialtyShop.createSignatureSandwich();
+      case BonusShop bonusShop -> new Sandwich(); // actual implementation not shown for brevity
+      default -> null;
+   };
+}
+```
+I am low-key obsessed with `switch expressions` because of how versatile it can be. I find it really exciting to be able to use its `pattern matching` capabilities for the first time, especially since I learned about them early in the class.
