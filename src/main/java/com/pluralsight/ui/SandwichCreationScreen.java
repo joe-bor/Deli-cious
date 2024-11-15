@@ -3,6 +3,8 @@ package com.pluralsight.ui;
 import com.pluralsight.models.Order;
 import com.pluralsight.models.enums.BreadType;
 import com.pluralsight.models.enums.Size;
+import com.pluralsight.models.sandwich.BLT;
+import com.pluralsight.models.sandwich.PhillyCheeseSteak;
 import com.pluralsight.models.sandwich.Sandwich;
 import com.pluralsight.models.sandwich_shop.BonusShop;
 import com.pluralsight.models.sandwich_shop.SandwichShop;
@@ -82,8 +84,8 @@ public class SandwichCreationScreen {
 
                 String templateChoice = SCANNER.nextLine();
                 yield switch (templateChoice) {
-                    case "1" -> bonusShop.getTemplateSandwiches().get(0);
-                    case "2" -> bonusShop.getTemplateSandwiches().get(1);
+                    case "1" -> new BLT();
+                    case "2" -> new PhillyCheeseSteak();
                     default -> {
                         System.out.println("Invalid Option!");
                         yield null;
@@ -171,7 +173,7 @@ public class SandwichCreationScreen {
         System.out.println("------- Sandwich Creation Screen ------");
         Sandwich currentSandwich;
 
-        // create a sandwich (just bread and size)
+        // createNew a sandwich (just bread and size)
         BreadType breadType = selectBread();
         Size sandwichSize = selectSandwichSize();
         currentSandwich = new Sandwich(breadType, sandwichSize);

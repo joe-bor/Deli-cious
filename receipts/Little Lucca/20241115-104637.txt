@@ -1,0 +1,36 @@
+======================== RECEIPT ========================
+                    Little Lucca
+  724 El Camino Real, South San Francisco, CA 94080
+                2024-11-15 @ 10:46
+=========================================================
+
+            *** ORDER ***
+Customer: Ethan     
+
+Sandwich:
+---------------------------------------------------------------------
+| Bread: WHITE           | Size: LARGE           | Toasted: No             
+---------------------------------------------------------------------
+| Meat: Extra Mortadella, Extra Salami          
+| Cheese:                                         
+| Others: OG Garlic Sauce, Hot Pepper Sauce, Mayo, Mustard, Pickles, Red Onions, Lettuce, Tomato
+| Unique: Mortadella, OG Garlic Sauce, Hot Pepper Sauce
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+| Bread: WHITE           | Size: LARGE           | Toasted: No             
+---------------------------------------------------------------------
+| Meat: Extra Mortadella                        
+| Cheese:                                         
+| Others: OG Garlic Sauce, Hot Pepper Sauce       
+| Unique: Mortadella, OG Garlic Sauce, Hot Pepper Sauce
+---------------------------------------------------------------------
+
+Drinks:           
+
+Chips:           
+-----
+Total: 30.50
+
+
+======================== End of Receipt ========================

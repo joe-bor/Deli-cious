@@ -1,0 +1,36 @@
+======================== RECEIPT ========================
+                    Bonus Challenge
+  Contains 'template sandwiches' that can be customized
+                2024-11-15 @ 01:36
+=========================================================
+
+            *** ORDER ***
+Customer: joezari   
+
+Sandwich:
+---------------------------------------------------------------------
+| Bread: WRAP            | Size: MEDIUM          | Toasted: Yes            
+---------------------------------------------------------------------
+| Meat: Bacon                                   
+| Cheese: Cheddar                                 
+| Others: Lettuce, Tomato, Ranch                  
+| Unique:                                         
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+| Bread: WRAP            | Size: MEDIUM          | Toasted: Yes            
+---------------------------------------------------------------------
+| Meat: Bacon                                   
+| Cheese: Cheddar                                 
+| Others: Lettuce, Tomato, Ranch                  
+| Unique:                                         
+---------------------------------------------------------------------
+
+Drinks: LARGE coke
+
+Chips: cheetos   
+-----
+Total: 25.50
+
+
+======================== End of Receipt ========================
