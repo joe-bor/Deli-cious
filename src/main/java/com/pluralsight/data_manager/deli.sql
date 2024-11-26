@@ -7,7 +7,6 @@ USE deli;
 CREATE TABLE `Toppings` (
     `toppingID` INTEGER NOT NULL AUTO_INCREMENT,
     `toppingName` VARCHAR(25) NOT NULL,
-    `extra` BOOLEAN DEFAULT FALSE,
     CONSTRAINT `PK_Toppings` PRIMARY KEY (`toppingID`)
 );
 
@@ -22,6 +21,7 @@ CREATE TABLE `Sandwiches` (
 CREATE TABLE `Sandwich_Toppings` (
     `sandwichID` INTEGER NOT NULL,
     `toppingID` INTEGER NOT NULL,
+    `extra` BOOLEAN DEFAULT FALSE,
     CONSTRAINT `FK_Sandwich` FOREIGN KEY (`sandwichID`) REFERENCES `Sandwiches` (`sandwichID`),
     CONSTRAINT `FK_Topping` FOREIGN KEY (`toppingID`) REFERENCES `Toppings` (`toppingID`)
 );
